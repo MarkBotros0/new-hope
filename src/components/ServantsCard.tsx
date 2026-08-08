@@ -6,7 +6,8 @@ function ServantCard({ servant }: { servant: Servant }) {
       {/* Photo placeholder — swap the src for a real portrait later. */}
       <img
         src="/placeholder-avatar.svg"
-        alt={`صورة ${servant.name}`}
+        alt=""
+        aria-hidden="true"
         className="h-20 w-20 rounded-full border border-line bg-sage-tint object-cover"
       />
       <p className="mt-3 font-bold text-ink">{servant.name}</p>
@@ -21,22 +22,27 @@ interface ServantsCardProps {
   note?: string
 }
 
-/** Team members — photo-placeholder avatars in a row, plus an optional note. */
 export function ServantsCard({ servants, note }: ServantsCardProps) {
   const hasServants = servants.length > 0
 
   return (
     <div>
       {hasServants && (
-        <div className="flex flex-wrap gap-x-8 gap-y-6">
+        <ul className="flex flex-wrap gap-x-8 gap-y-6">
           {servants.map((servant) => (
-            <ServantCard key={servant.name} servant={servant} />
+            <li key={servant.name}>
+              <ServantCard servant={servant} />
+            </li>
           ))}
-        </div>
+        </ul>
       )}
       {note && (
         <p
-          className={`font-semibold text-body ${hasServants ? 'mt-6' : 'text-lg'}`}
+          className={
+            hasServants
+              ? 'mt-7 border-t border-line pt-4 text-sm font-semibold text-label'
+              : 'text-lg font-semibold text-body'
+          }
         >
           {note}
         </p>

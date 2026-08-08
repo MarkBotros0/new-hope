@@ -1,73 +1,57 @@
-import { useState } from 'react'
-import { Section } from './Section'
-import { SectionLabel } from './SectionLabel'
-import { buildBlocks, type Block } from './sectionBlocks'
+import { useId, useState } from 'react'
+import { SectionList } from './SectionList'
+import { TabStrip } from './TabStrip'
+import { panelId, tabId } from './tabIds'
+import { buildBlocks, buildContactBlock, type Block } from './sectionBlocks'
 import type { MinistrySection } from '../data/ministries'
 
 /** Switch between the sub-ministries of a page (e.g. the two Sudanese
- *  ministries) via a sticky tab bar, so every sub-ministry is discoverable.
- *  The active sub-ministry's description leads with its vision. */
+ *  ministries) via a sticky tab bar, so every sub-ministry is discoverable. */
 export function SubMinistryTabs({ sections }: { sections: MinistrySection[] }) {
   const [active, setActive] = useState(0)
+  const prefix = `sub${useId()}`
   const section = sections[active]
 
   const lead: Block = {
     key: 'lead',
-    content: (
-      <div>
-        <h2 className="text-2xl font-black text-ink sm:text-3xl">{section.heading}</h2>
-        {section.intro && section.intro.length > 0 && (
-          <div className="mt-4 max-w-3xl space-y-4">
-            {section.intro.map((t) => (
-              <p key={t} className="text-lg leading-loose text-body">
-                {t}
-              </p>
-            ))}
-          </div>
-        )}
-        {section.vision && (
-          <div className="mt-8">
-            <SectionLabel>رؤيتنا</SectionLabel>
-            <p className="max-w-3xl text-xl font-bold leading-relaxed text-ink sm:text-2xl">
-              {section.vision}
-            </p>
-          </div>
-        )}
+    title: section.heading,
+    content: section.intro?.length ? (
+      <div className="max-w-3xl space-y-4">
+        {section.intro.map((t) => (
+          <p key={t} className="text-lg leading-loose text-body">
+            {t}
+          </p>
+        ))}
       </div>
-    ),
+    ) : null,
   }
 
-  const blocks = [lead, ...buildBlocks(section, active, { includeVision: false })]
+  const blocks = [lead, ...buildBlocks(section), buildContactBlock()]
 
   return (
-    <>
-      <div className="sticky top-16 z-10 border-y border-line bg-page/90 backdrop-blur">
-        <div className="mx-auto flex max-w-6xl flex-wrap gap-2.5 px-4 py-3 sm:px-6">
-          {sections.map((s, i) => (
-            <button
-              key={s.heading}
-              type="button"
-              aria-pressed={i === active}
-              onClick={() => setActive(i)}
-              className={`rounded-full px-5 py-2.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand ${
-                i === active
-                  ? 'bg-brand text-white shadow-sm'
-                  : 'border border-line bg-white text-body hover:border-brand hover:text-brand'
-              }`}
-            >
-              {s.tabLabel ?? s.heading}
-            </button>
-          ))}
+    // The tab bar joins the header in the sticky stack; anchors offset by both.
+    <div style={{ '--tabbar-h': '4.25rem' } as React.CSSProperties}>
+      <div className="sticky top-[var(--header-h)] z-10 border-y border-line bg-page/90 backdrop-blur">
+        <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
+          <TabStrip
+            labels={sections.map((s) => s.tabLabel ?? s.heading ?? '')}
+            active={active}
+            onChange={setActive}
+            idPrefix={prefix}
+            scrollable
+          />
         </div>
       </div>
 
-      <div key={active} className="[animation:fadeIn_0.35s_ease]">
-        {blocks.map((b, i) => (
-          <Section key={b.key} eyebrow={b.eyebrow} tone={i % 2 === 0 ? 'tint' : 'white'}>
-            {b.content}
-          </Section>
-        ))}
+      <div
+        id={panelId(prefix, active)}
+        role="tabpanel"
+        aria-labelledby={tabId(prefix, active)}
+        tabIndex={0}
+        className="focus-visible:outline-none [animation:fadeIn_0.35s_ease]"
+      >
+        <SectionList blocks={blocks} />
       </div>
-    </>
+    </div>
   )
 }

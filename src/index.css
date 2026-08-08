@@ -1,19 +1,18 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Brand palette — New Hope logo (black + orange). Refine orange from the
-     logo file once dropped into public/logo.png. */
+  /* Brand palette — New Hope logo (black + orange). */
   --color-brand: #1a1a1a; /* primary — logo black */
   --color-brand-dark: #000000; /* primary hover */
-  --color-secondary: #f05a27; /* secondary — logo orange */
-  --color-secondary-dark: #d84d1d; /* secondary hover */
-  --color-sun: #f05a27;
-  --color-leaf: #f05a27; /* accent (unused) kept on-brand */
-  --color-sage-tint: #faf6f3; /* tinted card surface (warm neutral) */
-  --color-label: #1f1f1f; /* section eyebrow labels */
-  --color-ink: #141414;
-  --color-body: #4a4744;
-  --color-line: #e6e3e0;
+  --color-secondary: #f05a27; /* secondary — logo orange (fills/accents) */
+  --color-secondary-dark: #b23c14; /* orange text — AA on white and on tint */
+  --color-sage-tint: #faf6f3; /* tinted band surface (warm neutral) */
+  --color-ink: #141414; /* headings */
+  --color-body: #4a4744; /* body text */
+  --color-label: #3f3c39; /* secondary labels */
+  --color-muted: #6b6763; /* muted text — still AA on white and tint */
+  --color-line: #e0dcd8; /* hairline dividers and card edges */
+  --color-line-strong: #8f8a85; /* borders that identify a control (AA 1.4.11) */
   --color-page: #ffffff;
 
   /* Arabic UI font */
@@ -21,16 +20,24 @@
 }
 
 @layer base {
+  :root {
+    /* Height of the sticky site header; sub-ministry pages add a tab bar on
+       top of it. Anchor offsets are derived from these. */
+    --header-h: 4rem;
+    --tabbar-h: 0rem;
+  }
+
+  @media (min-width: 640px) {
+    :root {
+      --header-h: 4.25rem;
+    }
+  }
+
   html {
     scroll-behavior: smooth;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
-  }
-
-  /* Keep anchored cards clear of the sticky header when scrolled to. */
-  [id] {
-    scroll-margin-top: 5rem;
   }
 
   body {
@@ -48,6 +55,11 @@
   }
 }
 
+@utility scroll-anchor {
+  /* Clear the sticky header (and tab bar, where present) when jumped to. */
+  scroll-margin-top: calc(var(--header-h) + var(--tabbar-h) + 1.5rem);
+}
+
 /* Tab-panel entrance — gives interactive sections a bit of life. */
 @keyframes fadeIn {
   from {
@@ -61,6 +73,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   *,
   *::before,
   *::after {

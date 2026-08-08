@@ -13,7 +13,8 @@ const base =
 
 const variants = {
   solid: 'bg-brand text-white hover:bg-brand-dark',
-  outline: 'border border-line bg-white text-ink hover:border-brand hover:text-brand',
+  outline:
+    'border border-line-strong bg-white text-ink hover:border-brand hover:text-brand',
 }
 
 export function Button({

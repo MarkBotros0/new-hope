@@ -1,8 +1,8 @@
 import { Check } from 'lucide-react'
 import type { Program } from '../data/ministries'
 
-/** Content of one program (shown inside an active tab panel): title, meta
- *  chips, paragraphs, and an optional detail block. No box. */
+/** Content of one program (shown inside the active tab panel): title, meta
+ *  chips, paragraphs, and an optional detail block. */
 export function ProgramCard({ program }: { program: Program }) {
   const { title, titleEn, meta, paragraphs, details } = program
 
@@ -24,7 +24,7 @@ export function ProgramCard({ program }: { program: Program }) {
               key={m.label}
               className="inline-flex items-center gap-1.5 rounded-full bg-secondary/10 px-3 py-1 text-xs font-bold text-secondary-dark"
             >
-              <span className="opacity-70">{m.label}</span>
+              <span className="font-semibold text-label">{m.label}</span>
               {m.value}
             </span>
           ))}
@@ -41,14 +41,14 @@ export function ProgramCard({ program }: { program: Program }) {
 
       {details && (
         <div className="mt-6 border-t border-line pt-5">
-          <p className="mb-4 font-bold text-ink">{details.heading}</p>
+          <h4 className="mb-4 font-bold text-ink">{details.heading}</h4>
 
           {details.items && (
             <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
               {details.items.map((it) => (
                 <li key={it} className="flex items-start gap-2.5 text-body">
                   <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary-dark">
-                    <Check size={15} />
+                    <Check size={15} aria-hidden="true" />
                   </span>
                   <span className="leading-relaxed">{it}</span>
                 </li>

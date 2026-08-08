@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import { getMinistry } from '../data/ministries'
 import { MinistryLayout } from '../components/MinistryLayout'
@@ -6,9 +7,14 @@ export function MinistryPage() {
   const { slug } = useParams()
   const ministry = getMinistry(slug)
 
+  // Give each route a distinct document title (tabs, history, bookmarks).
+  useEffect(() => {
+    document.title = ministry ? `${ministry.title} — New Hope` : 'New Hope'
+  }, [ministry])
+
   if (!ministry) {
     return (
-      <main className="mx-auto max-w-6xl px-4 py-20 text-center sm:px-6">
+      <main id="main" className="mx-auto max-w-6xl px-4 py-20 text-center sm:px-6">
         <h1 className="text-2xl font-black text-ink">الصفحة غير موجودة</h1>
         <p className="mt-3 text-body">لم نتمكّن من العثور على هذه الخدمة.</p>
         <Link

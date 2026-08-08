@@ -1,32 +1,31 @@
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { ProgramCard } from './ProgramCard'
+import { TabStrip } from './TabStrip'
+import { panelId, tabId } from './tabIds'
 import type { Program } from '../data/ministries'
 
-/** Interactive tabbed view of a program group — click a program to reveal it. */
+/** Interactive tabbed view of a program group — pick a program to reveal it. */
 export function ProgramTabs({ programs }: { programs: Program[] }) {
   const [active, setActive] = useState(0)
+  const prefix = `programs${useId()}`
 
   return (
     <div>
-      <div className="flex flex-wrap gap-2.5">
-        {programs.map((program, i) => (
-          <button
-            key={program.title}
-            type="button"
-            aria-pressed={i === active}
-            onClick={() => setActive(i)}
-            className={`rounded-full px-5 py-2.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
-              i === active
-                ? 'bg-brand text-white shadow-sm'
-                : 'border border-line bg-white text-body hover:border-brand hover:text-brand'
-            }`}
-          >
-            {program.title}
-          </button>
-        ))}
-      </div>
+      <TabStrip
+        labels={programs.map((p) => p.title)}
+        active={active}
+        onChange={setActive}
+        idPrefix={prefix}
+        scrollable
+      />
 
-      <div key={active} className="mt-8 [animation:fadeIn_0.35s_ease]">
+      <div
+        id={panelId(prefix, active)}
+        role="tabpanel"
+        aria-labelledby={tabId(prefix, active)}
+        tabIndex={0}
+        className="mt-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-4 [animation:fadeIn_0.35s_ease]"
+      >
         <ProgramCard program={programs[active]} />
       </div>
     </div>
