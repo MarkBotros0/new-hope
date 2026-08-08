@@ -8,7 +8,7 @@ function FooterHeading({ children }: { children: string }) {
 }
 
 const linkClass =
-  'rounded transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70'
+  'inline-block py-2 rounded transition hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70'
 
 /** Contact rows the client still needs to fill in. */
 const pendingContact = [
@@ -37,7 +37,7 @@ export function Footer() {
         {/* Ministries */}
         <nav aria-label="روابط الخدمات">
           <FooterHeading>خدماتنا</FooterHeading>
-          <ul className="space-y-2 text-sm text-white/80">
+          <ul className="text-sm text-white/80">
             {ministries.map((m) => (
               <li key={m.slug}>
                 <Link to={`/${m.slug}`} className={linkClass}>
