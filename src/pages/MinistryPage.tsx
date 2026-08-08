@@ -9,7 +9,9 @@ export function MinistryPage() {
 
   // Give each route a distinct document title (tabs, history, bookmarks).
   useEffect(() => {
-    document.title = ministry ? `${ministry.title} — New Hope` : 'New Hope'
+    document.title = ministry
+      ? `${ministry.title} — أمل جديد`
+      : 'أمل جديد — New Hope'
   }, [ministry])
 
   if (!ministry) {

@@ -45,16 +45,14 @@ export function SiteHeader() {
           {logoOk ? (
             <img
               src="/logo.png"
-              alt="New Hope"
+              alt="أمل جديد — New Hope"
               className="h-10 w-auto object-contain sm:h-11"
               onError={() => setLogoOk(false)}
             />
           ) : (
             <>
               <LogoFallback />
-              <span dir="ltr" className="text-lg font-extrabold text-ink">
-                New Hope
-              </span>
+              <span className="text-lg font-extrabold text-ink">أمل جديد</span>
             </>
           )}
         </div>

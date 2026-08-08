@@ -25,8 +25,9 @@ export function Footer() {
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 text-center sm:grid-cols-2 sm:gap-8 sm:px-6 sm:text-start">
         {/* Brand */}
         <div>
-          <p className="text-xl font-extrabold">
-            <span dir="ltr">New Hope</span>
+          <p className="text-xl font-extrabold">أمل جديد</p>
+          <p dir="ltr" className="mt-1 text-sm font-bold tracking-wide text-white/70">
+            New Hope
           </p>
           <p className="mt-3 leading-loose text-white/80">
             خدمة الشباب وتطوير القادة · خدمة السودانيين بمصر
@@ -64,7 +65,7 @@ export function Footer() {
 
       <div className="border-t border-white/20">
         <div className="mx-auto max-w-6xl px-4 py-5 text-center text-sm text-white/80 sm:px-6">
-          © {year} New Hope · جميع الحقوق محفوظة
+          © {year} أمل جديد · جميع الحقوق محفوظة
         </div>
       </div>
     </footer>
