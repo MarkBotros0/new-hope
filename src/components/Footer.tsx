@@ -1,15 +1,10 @@
 import { Link } from 'react-router-dom'
 import { Mail, MapPin } from 'lucide-react'
-import { ministries } from '../data/ministries'
+import { ministries, PENDING } from '../data/ministries'
 
-/** Small footer heading, echoing the SectionLabel orange mark. */
+/** Small footer heading — clean bold text, no bar. */
 function FooterHeading({ children }: { children: string }) {
-  return (
-    <h3 className="mb-3 flex items-center gap-2 text-sm font-bold text-white">
-      <span className="inline-block h-1 w-4 rounded-full bg-secondary" />
-      {children}
-    </h3>
-  )
+  return <h3 className="mb-3 text-sm font-bold text-white">{children}</h3>
 }
 
 type IconProps = { size?: number }
@@ -48,11 +43,11 @@ function InstagramIcon({ size = 18 }: IconProps) {
   )
 }
 
-// TODO: replace the "#" placeholders with the real social profile URLs.
+// Social profile URLs not yet provided — icons shown as pending placeholders.
 const socials = [
-  { label: 'فيسبوك', href: '#', Icon: FacebookIcon },
-  { label: 'يوتيوب', href: '#', Icon: YoutubeIcon },
-  { label: 'إنستجرام', href: '#', Icon: InstagramIcon },
+  { label: 'فيسبوك', Icon: FacebookIcon },
+  { label: 'يوتيوب', Icon: YoutubeIcon },
+  { label: 'إنستجرام', Icon: InstagramIcon },
 ]
 
 const linkClass =
@@ -63,27 +58,29 @@ export function Footer() {
 
   return (
     <footer className="bg-brand text-white">
-      <div className="mx-auto grid max-w-6xl gap-8 px-4 py-12 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 text-center sm:grid-cols-2 sm:gap-8 sm:px-6 sm:text-start lg:grid-cols-4">
         {/* Brand, tagline & socials */}
-        <div className="lg:col-span-2">
-          <p dir="ltr" className="text-xl font-extrabold">
-            New Hope
+        <div className="sm:col-span-2 lg:col-span-2">
+          <p className="text-xl font-extrabold">
+            <span dir="ltr">New Hope</span>
           </p>
-          <p className="mt-3 max-w-sm leading-loose text-white/75">
-            نخدم كل الأجيال بالكلمة والصلاة والمحبة، ونبني معًا حياةً لها رجاء.
+          {/* Tagline not yet provided by the client. */}
+          <p className="mx-auto mt-3 max-w-sm leading-loose text-white/75 sm:mx-0">
+            {PENDING}
           </p>
-          <div className="mt-5 flex items-center gap-2">
-            {socials.map(({ label, href, Icon }) => (
-              <a
+          <div className="mt-5 flex items-center justify-center gap-2 sm:justify-start">
+            {socials.map(({ label, Icon }) => (
+              <span
                 key={label}
-                href={href}
-                aria-label={label}
-                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 transition hover:bg-white/20 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/70"
+                aria-label={`${label} (${PENDING})`}
+                title={PENDING}
+                className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/50"
               >
                 <Icon size={18} />
-              </a>
+              </span>
             ))}
           </div>
+          <p className="mt-2 text-xs font-semibold text-white/50">{PENDING}</p>
         </div>
 
         {/* Ministries */}
@@ -104,17 +101,13 @@ export function Footer() {
         <div>
           <FooterHeading>تواصل معنا</FooterHeading>
           <ul className="space-y-3 text-sm text-white/75">
-            <li className="flex items-start gap-2">
+            <li className="flex items-start justify-center gap-2 sm:justify-start">
               <MapPin size={16} className="mt-0.5 shrink-0 text-secondary" />
-              {/* TODO: real address */}
-              <span>العنوان يُضاف لاحقًا</span>
+              <span>{PENDING}</span>
             </li>
-            <li className="flex items-center gap-2">
+            <li className="flex items-center justify-center gap-2 sm:justify-start">
               <Mail size={16} className="shrink-0 text-secondary" />
-              {/* TODO: real email */}
-              <a href="mailto:info@newhope.church" dir="ltr" className={linkClass}>
-                info@newhope.church
-              </a>
+              <span dir="ltr">{PENDING}</span>
             </li>
           </ul>
         </div>

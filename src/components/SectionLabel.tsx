@@ -1,12 +1,11 @@
 import type { ReactNode } from 'react'
 
-/** Small green eyebrow label above a card's heading (e.g. "من خدماتنا"),
- *  led by a short orange mark that echoes the logo's accent. */
+/** Section eyebrow (e.g. "الرؤية") as a soft rounded badge — a modern, friendly
+ *  chip in the brand's orange tint. */
 export function SectionLabel({ children }: { children: ReactNode }) {
   return (
-    <p className="mb-2 flex items-center gap-2 text-sm font-bold text-label">
-      <span className="inline-block h-1 w-4 rounded-full bg-secondary" />
+    <span className="mb-3 inline-flex w-fit items-center rounded-full bg-secondary/10 px-3 py-1 text-sm font-bold text-secondary-dark">
       {children}
-    </p>
+    </span>
   )
 }

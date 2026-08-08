@@ -1,16 +1,13 @@
-import { Card } from './Card'
-import { SectionLabel } from './SectionLabel'
-import { Photo } from './Photo'
 import type { Servant } from '../data/ministries'
 
 function ServantCard({ servant }: { servant: Servant }) {
   return (
-    <div className="flex flex-col items-center text-center">
-      <Photo
-        variant="circle"
+    <div className="flex w-32 flex-col items-center text-center">
+      {/* Photo placeholder — swap the src for a real portrait later. */}
+      <img
         src="/placeholder-avatar.svg"
         alt={`صورة ${servant.name}`}
-        className="w-24"
+        className="h-20 w-20 rounded-full border border-line bg-sage-tint object-cover"
       />
       <p className="mt-3 font-bold text-ink">{servant.name}</p>
       <p className="text-sm text-label">{servant.role}</p>
@@ -18,15 +15,32 @@ function ServantCard({ servant }: { servant: Servant }) {
   )
 }
 
-export function ServantsCard({ servants }: { servants: Servant[] }) {
+interface ServantsCardProps {
+  servants: Servant[]
+  /** Extra line, e.g. a team-size count when there are no individual names. */
+  note?: string
+}
+
+/** Team members — photo-placeholder avatars in a row, plus an optional note. */
+export function ServantsCard({ servants, note }: ServantsCardProps) {
+  const hasServants = servants.length > 0
+
   return (
-    <Card tone="sage" className="h-full">
-      <SectionLabel>خدام الخدمة</SectionLabel>
-      <div className="mt-4 grid grid-cols-2 gap-6">
-        {servants.map((servant) => (
-          <ServantCard key={servant.name} servant={servant} />
-        ))}
-      </div>
-    </Card>
+    <div>
+      {hasServants && (
+        <div className="flex flex-wrap gap-x-8 gap-y-6">
+          {servants.map((servant) => (
+            <ServantCard key={servant.name} servant={servant} />
+          ))}
+        </div>
+      )}
+      {note && (
+        <p
+          className={`font-semibold text-body ${hasServants ? 'mt-6' : 'text-lg'}`}
+        >
+          {note}
+        </p>
+      )}
+    </div>
   )
 }

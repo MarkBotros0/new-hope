@@ -1,62 +1,54 @@
-import { Card } from './Card'
-import { SectionLabel } from './SectionLabel'
 import { ServiceHero } from './ServiceHero'
-import { VisionCard } from './VisionCard'
-import { ServantsCard } from './ServantsCard'
-import { ContactCard } from './ContactCard'
-import { ScheduleCard } from './ScheduleCard'
-import { ArchiveGallery } from './ArchiveGallery'
-import { isPublished, type Ministry } from '../data/ministries'
+import { Section } from './Section'
+import { SubMinistryTabs } from './SubMinistryTabs'
+import { buildBlocks } from './sectionBlocks'
+import { PENDING, type Ministry } from '../data/ministries'
 
-function ComingSoon() {
-  return (
-    <Card tone="sage" className="text-center">
-      <SectionLabel>قريبًا</SectionLabel>
-      <p className="py-6 text-lg font-bold text-ink">
-        محتوى هذه الخدمة قيد الإعداد، تابعونا قريبًا.
-      </p>
-    </Card>
-  )
-}
-
-/** Bento arrangement of a ministry's cards. Empty sections are skipped. */
 export function MinistryLayout({ ministry }: { ministry: Ministry }) {
-  const published = isPublished(ministry)
+  const multi = ministry.sections.length > 1
+  const flatBlocks = multi ? [] : buildBlocks(ministry.sections[0], 0)
 
   return (
-    <main className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-6 sm:gap-6 sm:px-6 sm:py-8">
-      <ServiceHero ministry={ministry} />
+    <main>
+      <div className="mx-auto max-w-6xl px-4 pb-10 pt-6 sm:px-6 sm:pb-14 sm:pt-8">
+        <ServiceHero
+          eyebrow={ministry.eyebrow}
+          title={ministry.title}
+          description={ministry.description}
+          actions={[
+            { label: 'تواصل معنا', href: '#contact' },
+            { label: 'كيف تصل إلينا', href: '#directions', variant: 'outline' },
+          ]}
+        />
+      </div>
 
-      {published ? (
-        <div className="grid gap-5 sm:gap-6 md:grid-cols-2">
-          {/* Right column (RTL: rendered first) */}
-          <div className="flex flex-col gap-5">
-            {ministry.vision && (
-              <VisionCard vision={ministry.vision} by={ministry.visionBy} />
-            )}
-            {ministry.schedule.length > 0 && (
-              <ScheduleCard
-                schedule={ministry.schedule}
-                location={ministry.location}
-              />
-            )}
+      {multi ? (
+        <SubMinistryTabs sections={ministry.sections} />
+      ) : (
+        flatBlocks.map((block, i) => (
+          <Section
+            key={block.key}
+            eyebrow={block.eyebrow}
+            tone={i % 2 === 0 ? 'tint' : 'white'}
+          >
+            {block.content}
+          </Section>
+        ))
+      )}
+
+      {/* Contact & directions — not yet provided by the client. */}
+      <Section eyebrow="للتواصل" tone="white" className="border-t border-line">
+        <div className="grid gap-8 text-center sm:grid-cols-2 sm:text-start">
+          <div id="contact">
+            <h3 className="text-lg font-bold text-ink">تواصل معنا</h3>
+            <p className="mt-2 font-bold tracking-wide text-body/60">{PENDING}</p>
           </div>
-
-          {/* Left column */}
-          <div className="flex flex-col gap-5">
-            {ministry.servants.length > 0 && (
-              <ServantsCard servants={ministry.servants} />
-            )}
-            {ministry.contact && <ContactCard contact={ministry.contact} />}
+          <div id="directions">
+            <h3 className="text-lg font-bold text-ink">كيف تصل إلينا</h3>
+            <p className="mt-2 font-bold tracking-wide text-body/60">{PENDING}</p>
           </div>
         </div>
-      ) : (
-        <ComingSoon />
-      )}
-
-      {ministry.archiveSlots > 0 && (
-        <ArchiveGallery count={ministry.archiveSlots} />
-      )}
+      </Section>
     </main>
   )
 }
