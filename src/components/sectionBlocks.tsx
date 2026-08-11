@@ -95,11 +95,13 @@ export function buildBlocks(
     })
   }
 
-  if (section.archiveSlots) {
+  if (section.archiveSlots || section.archive?.length) {
     blocks.push({
       key: 'archive',
       title: 'من أرشيف الخدمة والفعاليات',
-      content: <ArchiveGallery count={section.archiveSlots} />,
+      content: (
+        <ArchiveGallery count={section.archiveSlots ?? 0} photos={section.archive} />
+      ),
     })
   }
 

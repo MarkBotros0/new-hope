@@ -21,6 +21,12 @@ export interface Principle {
   body: string
 }
 
+export interface ArchivePhoto {
+  /** Path under `public/archive/` — web-sized copies of the client's originals. */
+  src: string
+  alt: string
+}
+
 export interface Stat {
   value: string
   label: string
@@ -74,7 +80,9 @@ export interface MinistrySection {
   servants?: Servant[]
   /** One line, or several paragraphs when the team story needs them. */
   teamNote?: string | string[]
+  /** Placeholder tile count, used only while `archive` is still empty. */
   archiveSlots?: number
+  archive?: ArchivePhoto[]
 }
 
 export interface Ministry {
@@ -205,6 +213,16 @@ const youth: Ministry = {
         { name: 'ساندي سامي', role: 'عضو فريق خدمة الشباب' },
       ],
       archiveSlots: 4,
+      archive: [
+        {
+          src: '/archive/youth-discipleship-school-group.jpg',
+          alt: 'صورة جماعية لمشاركي مدرسة التلمذة في حديقة، يرتدون تيشيرت المدرسة الأبيض.',
+        },
+        {
+          src: '/archive/youth-discipleship-school-lecture.jpg',
+          alt: 'شباب يتابعون محاضرة في مدرسة التلمذة ويدوّنون ملاحظاتهم أمام كتبهم المقدسة.',
+        },
+      ],
     },
   ],
 }
@@ -259,6 +277,16 @@ const leaders: Ministry = {
         },
       ],
       archiveSlots: 4,
+      archive: [
+        {
+          src: '/archive/leaders-evangelical-council-training-2025.jpg',
+          alt: 'مدرِّب يعرض المادة على الشاشة أمام الخدام المشاركين في تدريب المجمع الإنجيلي ٢٠٢٥.',
+        },
+        {
+          src: '/archive/leaders-upper-egypt-training-2025.jpg',
+          alt: 'خدام من كنائس الصعيد يتابعون تدريب القادة ٢٠٢٥ داخل الكنيسة.',
+        },
+      ],
     },
   ],
 }
@@ -309,6 +337,24 @@ const sudanese: Ministry = {
       ],
       teamNote: 'يبلغ عدد فريق العمل الحالي بالمركز ٨٦ فردًا.',
       archiveSlots: 3,
+      archive: [
+        {
+          src: '/archive/sudanese-children-teacher-in-class.jpg',
+          alt: 'أطفال سودانيون بالزيّ المدرسي الأحمر مع مدرّسهم أمام فصلهم بمركز نيولايف.',
+        },
+        {
+          src: '/archive/sudanese-children-students-in-class.jpg',
+          alt: 'تلاميذ سودانيون على مقاعدهم داخل الفصل وأمامهم كتبهم المصوّرة.',
+        },
+        {
+          src: '/archive/sudanese-children-mathematics-class.jpg',
+          alt: 'مدرّس يشرح درس القيمة المكانية في الرياضيات أمام لوحة مكتوبة بخط اليد.',
+        },
+        {
+          src: '/archive/sudanese-children-counting-technique.jpg',
+          alt: 'طفلة تتدرّب على العدّ باستخدام خرزات العدّ فوق مقعدها في الفصل.',
+        },
+      ],
     },
     {
       eyebrow: 'خدمة السودانيين بمصر',
@@ -360,6 +406,16 @@ const sudanese: Ministry = {
       servants: [],
       teamNote: '٧ منسقات سودانيات متعاونات لخدمة السيدات والبنات.',
       archiveSlots: 3,
+      archive: [
+        {
+          src: '/archive/sudanese-women-discipleship-event.jpg',
+          alt: 'سيدات سودانيات في لقاء عبادة وتسبيح ضمن فعاليات مجموعات التلمذة.',
+        },
+        {
+          src: '/archive/sudanese-women-discipleship-meeting.jpg',
+          alt: 'سيدات سودانيات يقفن في حلقة للصلاة والتسبيح خلال لقاء مجموعة تلمذة.',
+        },
+      ],
     },
     {
       eyebrow: 'خدمة السودانيين بمصر',
