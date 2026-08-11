@@ -18,12 +18,16 @@ function ServantCard({ servant }: { servant: Servant }) {
 
 interface ServantsCardProps {
   servants: Servant[]
-  /** Extra line, e.g. a team-size count when there are no individual names. */
-  note?: string
+  /** Extra line(s), e.g. a team-size count when there are no individual names,
+   *  or a short paragraph on how the team is currently organised. */
+  note?: string | string[]
 }
 
 export function ServantsCard({ servants, note }: ServantsCardProps) {
   const hasServants = servants.length > 0
+  const notes = note === undefined ? [] : Array.isArray(note) ? note : [note]
+  // A single line stays a strong stand-alone statement; several are body prose.
+  const single = notes.length === 1
 
   return (
     <div>
@@ -36,16 +40,27 @@ export function ServantsCard({ servants, note }: ServantsCardProps) {
           ))}
         </ul>
       )}
-      {note && (
-        <p
-          className={
-            hasServants
-              ? 'mt-7 border-t border-line pt-4 text-sm font-semibold text-label'
-              : 'text-lg font-semibold text-body'
-          }
+      {notes.length > 0 && (
+        <div
+          className={`max-w-3xl space-y-4 ${
+            hasServants ? 'mt-7 border-t border-line pt-4' : ''
+          }`}
         >
-          {note}
-        </p>
+          {notes.map((line) => (
+            <p
+              key={line}
+              className={
+                single
+                  ? hasServants
+                    ? 'text-sm font-semibold text-label'
+                    : 'text-lg font-semibold text-body'
+                  : 'leading-loose text-body'
+              }
+            >
+              {line}
+            </p>
+          ))}
+        </div>
       )}
     </div>
   )

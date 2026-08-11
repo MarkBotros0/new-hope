@@ -40,6 +40,15 @@ export function buildBlocks(
     })
   }
 
+  if (section.goals) {
+    blocks.push({
+      key: 'goals',
+      title: section.goals.label,
+      lead: section.goals.lead,
+      content: <ServicesCard items={section.goals.items} />,
+    })
+  }
+
   if (section.principles?.length) {
     blocks.push({
       key: 'principles',
@@ -70,16 +79,18 @@ export function buildBlocks(
     blocks.push({
       key: 'audience',
       title: section.audience.label,
+      lead: section.audience.lead,
       density: 'tight',
       content: <AudienceCard items={section.audience.items} />,
     })
   }
 
-  const hasTeam = (section.servants?.length ?? 0) > 0 || Boolean(section.teamNote)
-  if (hasTeam) {
+  const namedServants = (section.servants?.length ?? 0) > 0
+  if (namedServants || section.teamNote) {
     blocks.push({
       key: 'team',
-      title: 'أعضاء الفريق',
+      // Without named portraits the band describes the team, not its members.
+      title: namedServants ? 'أعضاء الفريق' : 'فريق الخدمة',
       content: <ServantsCard servants={section.servants ?? []} note={section.teamNote} />,
     })
   }
