@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { Button } from '../components/Button'
 import { Section } from '../components/Section'
 import { SectionLabel } from '../components/SectionLabel'
-import { StatsCard } from '../components/StatsCard'
 import { PrinciplesCard } from '../components/PrinciplesCard'
 import { ServiceLinkCards } from '../components/ServiceLinkCards'
 import { ArchiveGallery } from '../components/ArchiveGallery'
@@ -45,10 +44,6 @@ export function HomePage() {
       <div className="mx-auto max-w-6xl px-4 pb-10 pt-6 sm:px-6 sm:pb-14 sm:pt-8">
         <HomeHero />
       </div>
-
-      <Section tone="tint" density="tight">
-        <StatsCard stats={site.impact} />
-      </Section>
 
       <Section
         id="services"

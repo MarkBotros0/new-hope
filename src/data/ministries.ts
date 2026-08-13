@@ -578,13 +578,6 @@ export const site = {
     'خدمة أمل جديد تعمل على تلمذة الشباب وتأهيل القادة والخدام في الكنائس المحلية، وعلى خدمة المجتمع السوداني في مصر: أطفالًا وسيدات وقادة.',
   /** Shared across the organisation — currently documented under خدمة الشباب. */
   principles: youth.sections[0].principles ?? [],
-  /** Headline figures, each taken verbatim from a service page. */
-  impact: [
-    { value: '١٠٧٠', label: 'طفل سوداني في مراكز نيولايف' },
-    { value: '١٢', label: 'مجموعة تلمذة وادّخار للسيدات' },
-    { value: '٨٦', label: 'فردًا في فريق خدمة الطفل' },
-    { value: '٣', label: 'مجالات خدمة رئيسية' },
-  ] as Stat[],
 } as const
 
 /** Photos already published on the service pages, reused as a home highlight. */

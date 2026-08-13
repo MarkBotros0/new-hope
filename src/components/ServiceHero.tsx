@@ -28,7 +28,8 @@ export function ServiceHero({
 }: ServiceHeroProps) {
   return (
     <div className="flex flex-col overflow-hidden rounded-3xl border border-secondary-line bg-white shadow-sm md:flex-row md:items-stretch">
-      {/* Text half — warm orange wash fading into the page. */}
+      {/* Text half — warm wash fading into the page. Gradients are reserved
+          for the heroes; every card surface below them is flat. */}
       <div className="flex flex-col justify-center bg-gradient-to-b from-secondary-soft to-white p-6 sm:p-10 md:w-1/2 md:min-w-0">
         {eyebrow && <SectionLabel>{eyebrow}</SectionLabel>}
         <h1 className="text-3xl font-black leading-tight text-ink sm:text-4xl lg:text-5xl">

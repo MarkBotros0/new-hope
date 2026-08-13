@@ -1,14 +1,14 @@
 import type { Stat } from '../data/ministries'
 
-/** Highlight figures as stat tiles. Orange numerals over a warm wash, with a
- *  vivid accent rule. Non-interactive. */
+/** Highlight figures as stat tiles: orange numerals on a flat white card,
+ *  with a vivid rule as the card's single accent. Non-interactive. */
 export function StatsCard({ stats }: { stats: Stat[] }) {
   return (
     <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
       {stats.map((s) => (
         <div
           key={s.label}
-          className="rounded-2xl border border-secondary-line bg-gradient-to-b from-secondary-soft/60 to-white p-5 text-center shadow-sm sm:p-6"
+          className="rounded-2xl border border-secondary-line bg-white p-5 text-center shadow-sm sm:p-6"
         >
           <p className="text-4xl font-black leading-tight text-secondary-dark sm:text-5xl">
             {s.value}

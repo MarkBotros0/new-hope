@@ -12,7 +12,7 @@ interface PurposeSectionProps {
 }
 
 /** Vision and mission as contained statement panels with an icon and a real
- *  <h3> each — replaces the old bare "chip + oversized paragraph" bands. */
+ *  <h3> each. The icon chip is this card's one orange accent. */
 export function PurposeSection({ vision, mission }: PurposeSectionProps) {
   const panels: Panel[] = []
   if (vision) panels.push({ label: 'الرؤية', text: vision, Icon: Eye })
@@ -23,7 +23,7 @@ export function PurposeSection({ vision, mission }: PurposeSectionProps) {
       {panels.map(({ label, text, Icon }) => (
         <div
           key={label}
-          className="rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-gradient-to-b from-secondary-soft/40 to-white p-6 shadow-sm sm:p-7"
+          className="rounded-2xl border border-secondary-line bg-white p-6 shadow-sm sm:p-7"
         >
           <div className="flex items-center gap-3">
             <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">

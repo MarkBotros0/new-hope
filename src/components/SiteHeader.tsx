@@ -61,7 +61,7 @@ export function SiteHeader() {
   }, [inService])
 
   return (
-    <header className="sticky top-0 z-20 border-b border-secondary-line bg-secondary-soft/85 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-secondary-line bg-page/85 backdrop-blur">
       {/* Orange accent bar — its height is counted in --header-h (index.css). */}
       <div className="h-1 bg-secondary" aria-hidden="true" />
 
@@ -74,7 +74,7 @@ export function SiteHeader() {
         >
           {logoOk ? (
             <img
-              src="/logo.png"
+              src="/logo-removebg-preview.png"
               alt="أمل جديد — New Hope"
               className="h-10 w-auto object-contain sm:h-11"
               onError={() => setLogoOk(false)}

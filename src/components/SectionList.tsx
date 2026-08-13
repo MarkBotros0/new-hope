@@ -13,7 +13,7 @@ export function SectionList({ blocks }: { blocks: Block[] }) {
           title={block.title}
           lead={block.lead}
           density={block.density}
-          tone={i % 2 === 0 ? 'tint' : 'white'}
+          tone={i % 2 === 0 ? 'white' : 'tint'}
           className={block.id ? 'scroll-anchor' : undefined}
         >
           {block.content}

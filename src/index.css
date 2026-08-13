@@ -16,7 +16,10 @@
   --color-secondary-soft: #ffe4d6; /* chip + icon surfaces (solid, prints true) */
   --color-secondary-line: #f7c3a8; /* warm hairline on orange surfaces */
 
-  --color-tint: #ffeadd; /* tinted band surface — warm orange wash */
+  /* Surface scale — three warm steps, each one level apart. Bands alternate
+     page/tint; cards sit flat and white on either; `secondary-soft` is the
+     chip/icon surface *inside* a card, so it stays distinct from both. */
+  --color-tint: #fff4ee; /* tinted band wash — subtle by design */
   --color-ink: #141414; /* headings */
   --color-body: #4a4340; /* body text */
   --color-label: #423b37; /* secondary labels */

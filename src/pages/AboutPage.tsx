@@ -31,7 +31,6 @@ export function AboutPage() {
       </div>
 
       <Section
-        tone="tint"
         id="areas"
         className="scroll-anchor"
         eyebrow="مجالات الخدمة"
@@ -41,11 +40,11 @@ export function AboutPage() {
         <ServiceLinkCards />
       </Section>
 
-      <Section title="مبادئنا الأساسية">
+      <Section tone="tint" title="مبادئنا الأساسية">
         <PrinciplesCard principles={site.principles} />
       </Section>
 
-      <Section tone="tint" title="نبذة عن المؤسسة" density="tight">
+      <Section title="نبذة عن المؤسسة" density="tight">
         <div className="max-w-3xl rounded-2xl border border-secondary-line bg-white p-6">
           <p className="leading-loose text-body">
             نبذة تعريفية عن نشأة الخدمة وهيكلها التنظيمي وشركائها — بانتظار
@@ -55,7 +54,7 @@ export function AboutPage() {
         </div>
       </Section>
 
-      <Section title="للتواصل" density="tight" id="contact" className="scroll-anchor">
+      <Section tone="tint" title="للتواصل" density="tight" id="contact" className="scroll-anchor">
         <div className="grid gap-6 sm:grid-cols-2">
           {[
             { id: 'about-contact', heading: 'تواصل معنا' },
