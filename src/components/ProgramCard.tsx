@@ -22,7 +22,7 @@ export function ProgramCard({ program }: { program: Program }) {
           {meta.map((m) => (
             <span
               key={m.label}
-              className="inline-flex items-center gap-1.5 rounded-full bg-secondary/10 px-3 py-1 text-xs font-bold text-secondary-dark"
+              className="inline-flex items-center gap-1.5 rounded-full bg-secondary-soft px-3 py-1 text-xs font-bold text-secondary-dark"
             >
               <span className="font-semibold text-label">{m.label}</span>
               {m.value}
@@ -47,7 +47,7 @@ export function ProgramCard({ program }: { program: Program }) {
             <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
               {details.items.map((it) => (
                 <li key={it} className="flex items-start gap-2.5 text-body">
-                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary-dark">
+                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">
                     <Check size={15} aria-hidden="true" />
                   </span>
                   <span className="leading-relaxed">{it}</span>

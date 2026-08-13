@@ -39,10 +39,10 @@ export function ArchiveGallery({ count, photos }: ArchiveGalleryProps) {
   }
 
   const arrow =
-    'flex h-11 w-11 items-center justify-center rounded-full border border-line-strong bg-white text-body transition hover:border-brand hover:text-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2'
+    'flex h-11 w-11 items-center justify-center rounded-full border border-line-strong bg-white text-body transition hover:border-secondary-dark hover:text-secondary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-2'
 
   const tile =
-    'aspect-[4/3] w-[78%] shrink-0 snap-start rounded-2xl border border-line bg-sage-tint sm:w-[45%] lg:w-[31%]'
+    'aspect-[4/3] w-[78%] shrink-0 snap-start rounded-2xl border border-secondary-line bg-secondary-soft sm:w-[45%] lg:w-[31%]'
 
   return (
     <div>
@@ -62,7 +62,7 @@ export function ArchiveGallery({ count, photos }: ArchiveGalleryProps) {
         tabIndex={0}
         role="group"
         aria-label="أرشيف الصور"
-        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        className="flex snap-x snap-mandatory gap-4 overflow-x-auto pb-1 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-4 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
       >
         {photos?.length
           ? photos.map((photo) => (
@@ -78,7 +78,7 @@ export function ArchiveGallery({ count, photos }: ArchiveGalleryProps) {
             ))
           : Array.from({ length: count }).map((_, index) => (
               <div key={index} className={`${tile} flex items-center justify-center`}>
-                <ImageIcon className="h-9 w-9 text-muted" aria-hidden="true" />
+                <ImageIcon className="h-9 w-9 text-secondary-dark/60" aria-hidden="true" />
               </div>
             ))}
       </div>

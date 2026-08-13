@@ -23,10 +23,10 @@ export function PurposeSection({ vision, mission }: PurposeSectionProps) {
       {panels.map(({ label, text, Icon }) => (
         <div
           key={label}
-          className="rounded-2xl border border-line bg-white p-6 shadow-sm sm:p-7"
+          className="rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-gradient-to-b from-secondary-soft/40 to-white p-6 shadow-sm sm:p-7"
         >
           <div className="flex items-center gap-3">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary-dark">
+            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">
               <Icon size={20} aria-hidden="true" />
             </span>
             <h3 className="text-lg font-black text-ink">{label}</h3>

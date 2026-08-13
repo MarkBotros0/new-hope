@@ -1,7 +1,7 @@
 import { PENDING } from '../data/ministries'
 
 interface PendingProps {
-  /** `dark` for use on the brand-coloured footer. */
+  /** `dark` for use on the black footer field. */
   tone?: 'light' | 'dark'
   className?: string
 }
@@ -11,7 +11,7 @@ interface PendingProps {
 export function Pending({ tone = 'light', className = '' }: PendingProps) {
   const skin =
     tone === 'dark'
-      ? 'border-white/45 text-white/80'
+      ? 'border-white/60 text-white/90'
       : 'border-line-strong text-muted'
 
   return (

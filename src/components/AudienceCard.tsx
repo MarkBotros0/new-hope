@@ -8,9 +8,9 @@ export function AudienceCard({ items }: { items: AudienceItem[] }) {
       {items.map((item) => (
         <div
           key={item.value}
-          className="flex items-start gap-4 rounded-2xl border border-line bg-white p-5"
+          className="flex items-start gap-4 rounded-2xl border border-secondary-line bg-white p-5"
         >
-          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary/10 text-secondary-dark">
+          <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">
             <Users size={18} aria-hidden="true" />
           </span>
           <div>

@@ -124,7 +124,7 @@ export function buildContactBlock(): Block {
           <div
             key={item.id}
             id={item.id}
-            className="scroll-anchor rounded-2xl border border-line bg-white p-6"
+            className="scroll-anchor rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-white p-6"
           >
             <h3 className="text-lg font-bold text-ink">{item.heading}</h3>
             <Pending className="mt-3" />

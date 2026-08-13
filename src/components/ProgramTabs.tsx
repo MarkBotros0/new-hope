@@ -24,7 +24,7 @@ export function ProgramTabs({ programs }: { programs: Program[] }) {
         role="tabpanel"
         aria-labelledby={tabId(prefix, active)}
         tabIndex={0}
-        className="mt-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-4 [animation:fadeIn_0.35s_ease]"
+        className="mt-8 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-4 [animation:fadeIn_0.35s_ease]"
       >
         <ProgramCard program={programs[active]} />
       </div>

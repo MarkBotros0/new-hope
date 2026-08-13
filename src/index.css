@@ -1,18 +1,28 @@
 @import 'tailwindcss';
 
 @theme {
-  /* Brand palette — New Hope logo (black + orange). */
-  --color-brand: #1a1a1a; /* primary — logo black */
-  --color-brand-dark: #000000; /* primary hover */
-  --color-secondary: #f05a27; /* secondary — logo orange (fills/accents) */
-  --color-secondary-dark: #b23c14; /* orange text — AA on white and on tint */
-  --color-sage-tint: #faf6f3; /* tinted band surface (warm neutral) */
+  /* Brand palette — New Hope logo (black + orange). Orange leads the system:
+     it carries actions, accents and tinted surfaces. Black is kept as the
+     structural anchor (footer, logo mark) rather than the action colour. */
+  --color-brand: #1a1a1a; /* structural black — logo mark, footer field */
+  --color-brand-dark: #000000;
+
+  /* Orange ramp. Vivid `secondary` is the logo colour and is reserved for
+     non-text marks (rules, washes, icons on dark); `secondary-dark` is the
+     text/action weight that clears AA on white, on tint, and on soft. */
+  --color-secondary: #f05a27; /* logo orange — rules, washes, graphics */
+  --color-secondary-dark: #b23c14; /* actions + orange text (AA 5.9:1 on white) */
+  --color-secondary-deep: #8f2f10; /* hover/pressed on solid orange */
+  --color-secondary-soft: #ffe4d6; /* chip + icon surfaces (solid, prints true) */
+  --color-secondary-line: #f7c3a8; /* warm hairline on orange surfaces */
+
+  --color-tint: #ffeadd; /* tinted band surface — warm orange wash */
   --color-ink: #141414; /* headings */
-  --color-body: #4a4744; /* body text */
-  --color-label: #3f3c39; /* secondary labels */
-  --color-muted: #6b6763; /* muted text — still AA on white and tint */
-  --color-line: #e0dcd8; /* hairline dividers and card edges */
-  --color-line-strong: #8f8a85; /* borders that identify a control (AA 1.4.11) */
+  --color-body: #4a4340; /* body text */
+  --color-label: #423b37; /* secondary labels */
+  --color-muted: #6f6560; /* muted text — still AA on white and tint */
+  --color-line: #eee0d8; /* hairline dividers and card edges */
+  --color-line-strong: #9a8378; /* borders that identify a control (AA 1.4.11) */
   --color-page: #ffffff;
 
   /* Arabic UI font */
@@ -21,15 +31,16 @@
 
 @layer base {
   :root {
-    /* Height of the sticky site header; sub-ministry pages add a tab bar on
-       top of it. Anchor offsets are derived from these. */
-    --header-h: 4rem;
+    /* Height of the sticky site header (0.25rem orange accent bar + content
+       row); sub-ministry pages add a tab bar on top of it. Anchor offsets are
+       derived from these. */
+    --header-h: 4.25rem;
     --tabbar-h: 0rem;
   }
 
   @media (min-width: 640px) {
     :root {
-      --header-h: 4.25rem;
+      --header-h: 4.5rem;
     }
   }
 

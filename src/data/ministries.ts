@@ -62,6 +62,9 @@ export interface ProgramGroup {
 }
 
 export interface MinistrySection {
+  /** URL segment for a sub-ministry (`/sudanese/children`). Required on pages
+   *  with more than one section so each is linkable from the nav. */
+  slug?: string
   /** Heading + eyebrow are shown when a page has more than one section. */
   heading?: string
   /** Short label for the sub-ministry tab (falls back to heading). */
@@ -91,6 +94,11 @@ export interface Ministry {
   title: string
   eyebrow?: string
   description?: string
+  /** One-line summary for nav menus and service cards. Condensed from this
+   *  ministry's own source text — no new claims are introduced. */
+  navBlurb?: string
+  /** Photo for the hero's image half. Falls back to the placeholder tile. */
+  heroPhoto?: ArchivePhoto
   sections: MinistrySection[]
 }
 
@@ -103,6 +111,11 @@ const youth: Ministry = {
   navLabel: 'الشباب',
   eyebrow: 'خدمة الشباب وتطوير القادة',
   title: 'خدمة الشباب',
+  navBlurb: 'مدارس تلمذة للشباب الجامعي والخريجين، وتدريبات لخدام وقادة الشباب بالكنائس.',
+  heroPhoto: {
+    src: '/archive/youth-discipleship-school-group.jpg',
+    alt: 'صورة جماعية لمشاركي مدرسة التلمذة في حديقة، يرتدون تيشيرت المدرسة الأبيض.',
+  },
   sections: [
     {
       vision:
@@ -235,6 +248,11 @@ const leaders: Ministry = {
   navLabel: 'القادة',
   eyebrow: 'خدمة الشباب وتطوير القادة',
   title: 'تطوير القادة والخدام',
+  navBlurb: 'دبلومات وشراكات لتدريب خدام الكنيسة المحلية وتنمية مهاراتهم الروحية والقيادية.',
+  heroPhoto: {
+    src: '/archive/leaders-upper-egypt-training-2025.jpg',
+    alt: 'خدام من كنائس الصعيد يتابعون تدريب القادة ٢٠٢٥ داخل الكنيسة.',
+  },
   sections: [
     {
       programGroups: [
@@ -299,9 +317,15 @@ const sudanese: Ministry = {
   slug: 'sudanese',
   navLabel: 'السودانيين',
   title: 'خدمة السودانيين بمصر',
+  navBlurb: 'خدمة الأطفال والسيدات والقادة السودانيين اللاجئين في مصر بعد حرب أبريل ٢٠٢٣.',
+  heroPhoto: {
+    src: '/archive/sudanese-children-students-in-class.jpg',
+    alt: 'تلاميذ سودانيون على مقاعدهم داخل الفصل وأمامهم كتبهم المصوّرة.',
+  },
   sections: [
     {
       eyebrow: 'خدمة السودانيين بمصر',
+      slug: 'children',
       heading: 'خدمة الطفل السوداني — مركز نيولايف',
       tabLabel: 'الطفل السوداني',
       intro: [
@@ -358,6 +382,7 @@ const sudanese: Ministry = {
     },
     {
       eyebrow: 'خدمة السودانيين بمصر',
+      slug: 'women',
       heading: 'خدمة الفتيات والسيدات السودانيات',
       tabLabel: 'الفتيات والسيدات',
       intro: [
@@ -419,6 +444,7 @@ const sudanese: Ministry = {
     },
     {
       eyebrow: 'خدمة السودانيين بمصر',
+      slug: 'pastors',
       heading: 'خدمة تطوير وتأهيل القسس وقادة الشباب السودانيين',
       tabLabel: 'القسس وقادة الشباب',
       intro: [
@@ -497,3 +523,71 @@ export const ministries: Ministry[] = [youth, leaders, sudanese]
 export function getMinistry(slug: string | undefined): Ministry | undefined {
   return ministries.find((m) => m.slug === slug)
 }
+
+/** Resolve a sub-ministry URL segment to its index on the page. Unknown or
+ *  missing segments fall back to the first section. */
+export function sectionIndex(ministry: Ministry, sub: string | undefined): number {
+  const i = ministry.sections.findIndex((s) => s.slug === sub)
+  return i === -1 ? 0 : i
+}
+
+export function sectionPath(ministry: Ministry, section: MinistrySection): string {
+  return section.slug ? `/${ministry.slug}/${section.slug}` : `/${ministry.slug}`
+}
+
+// ---------------------------------------------------------------------------
+// Navigation model
+// ---------------------------------------------------------------------------
+
+export interface NavNode {
+  label: string
+  path: string
+  blurb?: string
+  /** Sub-ministries, surfaced as a nested menu so none is hidden behind a tab. */
+  children?: NavNode[]
+}
+
+/** The الخدمات menu, derived from the ministries so the two never drift.
+ *  A page with more than one section contributes a nested level. */
+export const serviceNav: NavNode[] = ministries.map((m) => ({
+  label: m.navLabel,
+  path: `/${m.slug}`,
+  blurb: m.navBlurb,
+  children:
+    m.sections.length > 1
+      ? m.sections.map((s) => ({
+          label: s.tabLabel ?? s.heading ?? '',
+          path: sectionPath(m, s),
+        }))
+      : undefined,
+}))
+
+// ---------------------------------------------------------------------------
+// Site-level content (home + من نحن).
+// Every line below is lifted from the ministry content above or from the
+// client's own naming; nothing about the organisation is invented. Facts the
+// documents do not cover (founding story, contact details) stay PENDING.
+// ---------------------------------------------------------------------------
+
+export const site = {
+  name: 'أمل جديد',
+  nameEn: 'New Hope',
+  tagline: 'خدمة الشباب وتطوير القادة · خدمة السودانيين بمصر',
+  /** Home hero — describes only the work documented on the service pages. */
+  intro:
+    'خدمة أمل جديد تعمل على تلمذة الشباب وتأهيل القادة والخدام في الكنائس المحلية، وعلى خدمة المجتمع السوداني في مصر: أطفالًا وسيدات وقادة.',
+  /** Shared across the organisation — currently documented under خدمة الشباب. */
+  principles: youth.sections[0].principles ?? [],
+  /** Headline figures, each taken verbatim from a service page. */
+  impact: [
+    { value: '١٠٧٠', label: 'طفل سوداني في مراكز نيولايف' },
+    { value: '١٢', label: 'مجموعة تلمذة وادّخار للسيدات' },
+    { value: '٨٦', label: 'فردًا في فريق خدمة الطفل' },
+    { value: '٣', label: 'مجالات خدمة رئيسية' },
+  ] as Stat[],
+} as const
+
+/** Photos already published on the service pages, reused as a home highlight. */
+export const highlightPhotos: ArchivePhoto[] = ministries
+  .flatMap((m) => m.sections.flatMap((s) => s.archive ?? []))
+  .slice(0, 6)

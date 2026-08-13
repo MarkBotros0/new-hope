@@ -26,3 +26,6 @@ photos-source
 *.njsproj
 *.sln
 *.sw?
+
+# Local agent/editor tooling (dev-server launch config)
+.claude

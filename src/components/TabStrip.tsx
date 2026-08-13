@@ -74,10 +74,10 @@ export function TabStrip({
             aria-controls={panelId(idPrefix, i)}
             tabIndex={selected ? 0 : -1}
             onClick={() => onChange(i)}
-            className={`shrink-0 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-offset-2 ${
+            className={`shrink-0 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-2 ${
               selected
-                ? 'bg-brand text-white shadow-sm'
-                : 'border border-line-strong bg-white text-body hover:border-brand hover:text-brand'
+                ? 'bg-secondary-dark text-white shadow-sm'
+                : 'border border-line-strong bg-white text-body hover:border-secondary-dark hover:text-secondary-dark'
             }`}
           >
             {label}

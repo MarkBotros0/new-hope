@@ -35,16 +35,19 @@ export function Section({
     <section
       id={id}
       aria-labelledby={title ? headingId : undefined}
-      className={`${tone === 'tint' ? 'bg-sage-tint' : 'bg-page'} ${className}`}
+      className={`${tone === 'tint' ? 'bg-tint' : 'bg-page'} ${className}`}
     >
       <div className={`mx-auto max-w-6xl px-4 sm:px-6 ${pad}`}>
         {(eyebrow || title) && (
           <header className="mb-6 sm:mb-8">
             {eyebrow && <SectionLabel>{eyebrow}</SectionLabel>}
             {title && (
-              <h2 id={headingId} className="text-2xl font-black text-ink sm:text-3xl">
-                {title}
-              </h2>
+              <>
+                <h2 id={headingId} className="text-2xl font-black text-ink sm:text-3xl">
+                  {title}
+                </h2>
+                <span className="mt-3 block h-1.5 w-14 rounded-full bg-secondary" />
+              </>
             )}
             {lead && <p className="mt-3 max-w-3xl leading-loose text-body">{lead}</p>}
           </header>
