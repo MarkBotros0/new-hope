@@ -1,4 +1,4 @@
-import { Check } from 'lucide-react'
+import { topicIcon } from './topicIcons'
 import type { Program } from '../data/ministries'
 
 /** Content of one program (shown inside the active tab panel): title, meta
@@ -7,18 +7,20 @@ export function ProgramCard({ program }: { program: Program }) {
   const { title, titleEn, meta, paragraphs, details } = program
 
   return (
-    <div>
-      <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+    <div className="text-center">
+      <div>
         <h3 className="text-2xl font-black text-ink">{title}</h3>
+        {/* The English name sits under the Arabic one, so the Arabic keeps the
+            centre line to itself. */}
         {titleEn && (
-          <span dir="ltr" className="text-sm font-bold text-secondary-dark">
+          <span dir="ltr" className="mt-1 block text-sm font-bold text-secondary-dark">
             {titleEn}
           </span>
         )}
       </div>
 
       {meta && meta.length > 0 && (
-        <div className="mt-4 flex flex-wrap gap-2">
+        <div className="mt-4 flex flex-wrap justify-center gap-2">
           {meta.map((m) => (
             <span
               key={m.label}
@@ -31,7 +33,9 @@ export function ProgramCard({ program }: { program: Program }) {
         </div>
       )}
 
-      <div className="mt-4 max-w-3xl space-y-3">
+      {/* The program's own description, in the card the rest of the site uses
+          for a statement: white, hairline border, orange top rule. */}
+      <div className="mx-auto mt-5 max-w-3xl space-y-3 rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-white p-6 shadow-card sm:p-7">
         {paragraphs.map((para) => (
           <p key={para} className="leading-loose text-body">
             {para}
@@ -44,20 +48,34 @@ export function ProgramCard({ program }: { program: Program }) {
           <h4 className="mb-4 font-bold text-ink">{details.heading}</h4>
 
           {details.items && (
-            <ul className="grid gap-x-10 gap-y-3 sm:grid-cols-2">
-              {details.items.map((it) => (
-                <li key={it} className="flex items-start gap-2.5 text-body">
-                  <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">
-                    <Check size={15} aria-hidden="true" />
-                  </span>
-                  <span className="leading-relaxed">{it}</span>
-                </li>
-              ))}
+            <ul className="mx-auto grid max-w-3xl gap-2.5 sm:grid-cols-2">
+              {details.items.map((it, i) => {
+                const Icon = topicIcon(it)
+                return (
+                  <li
+                    key={it}
+                    className={`flex items-center justify-center gap-2.5 rounded-xl border border-secondary-line bg-white p-3.5 shadow-card ${
+                      // A last row holding one card centres under the pair above.
+                      details.items!.length % 2 === 1 && i === details.items!.length - 1
+                        ? 'sm:col-span-2 sm:w-[calc((100%-0.625rem)/2)] sm:justify-self-center'
+                        : ''
+                    }`}
+                  >
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">
+                      <Icon size={17} aria-hidden="true" />
+                    </span>
+                    {/* Start-aligned so a topic that wraps keeps one edge. */}
+                    <span className="text-start text-sm font-semibold leading-relaxed text-body">
+                      {it}
+                    </span>
+                  </li>
+                )
+              })}
             </ul>
           )}
 
           {details.namedItems && (
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="mx-auto grid max-w-3xl gap-6 sm:grid-cols-2">
               {details.namedItems.map((it) => (
                 <div key={it.title}>
                   <p className="font-bold text-ink">{it.title}</p>

@@ -1,13 +1,11 @@
 import type { ReactNode } from 'react'
 import { StatsCard } from './StatsCard'
-import { PrinciplesCard } from './PrinciplesCard'
 import { ServicesCard } from './ServicesCard'
 import { AudienceCard } from './AudienceCard'
 import { ServantsCard } from './ServantsCard'
 import { ProgramTabs } from './ProgramTabs'
 import { ArchiveGallery } from './ArchiveGallery'
 import { PurposeSection } from './PurposeSection'
-import { Pending } from './Pending'
 import type { MinistrySection } from '../data/ministries'
 
 export interface Block {
@@ -32,11 +30,12 @@ export function buildBlocks(
     blocks.push({ key: 'stats', density: 'tight', content: <StatsCard stats={section.stats} /> })
   }
 
-  if (includePurpose && (section.vision || section.mission)) {
+  // Vision only — the مهمة panel is not shown on the service pages.
+  if (includePurpose && section.vision) {
     blocks.push({
       key: 'purpose',
-      title: section.mission ? 'رؤيتنا ومهمتنا' : 'رؤيتنا',
-      content: <PurposeSection vision={section.vision} mission={section.mission} />,
+      title: 'رؤيتنا',
+      content: <PurposeSection vision={section.vision} />,
     })
   }
 
@@ -46,14 +45,6 @@ export function buildBlocks(
       title: section.goals.label,
       lead: section.goals.lead,
       content: <ServicesCard items={section.goals.items} />,
-    })
-  }
-
-  if (section.principles?.length) {
-    blocks.push({
-      key: 'principles',
-      title: 'مبادئنا الأساسية',
-      content: <PrinciplesCard principles={section.principles} />,
     })
   }
 
@@ -85,13 +76,13 @@ export function buildBlocks(
     })
   }
 
-  const namedServants = (section.servants?.length ?? 0) > 0
-  if (namedServants || section.teamNote) {
+  // Named members are not published; the band describes the team as a whole,
+  // so it only appears where the section carries a team note.
+  if (section.teamNote) {
     blocks.push({
       key: 'team',
-      // Without named portraits the band describes the team, not its members.
-      title: namedServants ? 'أعضاء الفريق' : 'فريق الخدمة',
-      content: <ServantsCard servants={section.servants ?? []} note={section.teamNote} />,
+      title: 'فريق الخدمة',
+      content: <ServantsCard note={section.teamNote} />,
     })
   }
 
@@ -106,31 +97,4 @@ export function buildBlocks(
   }
 
   return blocks
-}
-
-/** Contact and directions. The document supplies neither yet, so both are
- *  shown as explicit pending fields rather than invented values. */
-export function buildContactBlock(): Block {
-  return {
-    key: 'contact',
-    title: 'للتواصل',
-    density: 'tight',
-    content: (
-      <div className="grid gap-6 sm:grid-cols-2">
-        {[
-          { id: 'contact', heading: 'تواصل معنا' },
-          { id: 'directions', heading: 'كيف تصل إلينا' },
-        ].map((item) => (
-          <div
-            key={item.id}
-            id={item.id}
-            className="scroll-anchor rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-white p-6 shadow-card"
-          >
-            <h3 className="text-lg font-bold text-ink">{item.heading}</h3>
-            <Pending className="mt-3" />
-          </div>
-        ))}
-      </div>
-    ),
-  }
 }

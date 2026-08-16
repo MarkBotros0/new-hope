@@ -1,15 +1,15 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
-import { ChevronDown } from 'lucide-react'
+import { ArrowLeft, ChevronDown } from 'lucide-react'
 import { serviceNav } from '../data/ministries'
 
 /** Desktop الخدمات dropdown.
  *
  *  Built as a disclosure (button + expanded panel of plain links), not an ARIA
  *  menu: these are navigation links, so the browser's own link semantics and
- *  Tab order are the right contract. Sub-ministries are laid out inside the
- *  panel rather than behind a hover flyout, so every service — including the
- *  three nested under السودانيين — is visible in one glance. */
+ *  Tab order are the right contract. The panel lists the services themselves
+ *  and stops there — the sub-ministries under السودانيين are reachable from
+ *  the tabs on that page, and listing them here left the menu lopsided. */
 export function ServicesMenu() {
   const [open, setOpen] = useState(false)
   const containerRef = useRef<HTMLDivElement>(null)
@@ -77,46 +77,56 @@ export function ServicesMenu() {
       {open && (
         <div
           id={panelId}
-          className="absolute end-0 top-full z-30 mt-2 w-[min(44rem,calc(100vw-2rem))] rounded-2xl border border-secondary-line bg-white p-3 shadow-menu [animation:fadeIn_0.18s_ease]"
+          className="absolute end-0 top-full z-30 mt-2 w-[min(38rem,calc(100vw-2rem))] rounded-2xl border border-secondary-line bg-white p-2 shadow-menu [animation:fadeIn_0.18s_ease]"
         >
-          <ul className="grid gap-2 sm:grid-cols-3">
+          {/* Two services, two columns — the panel is sized to its contents so
+              there is no empty cell sitting beside them. */}
+          <ul className="grid gap-1.5 sm:grid-cols-2">
             {serviceNav.map((service) => (
               <li key={service.path}>
                 <Link
                   to={service.path}
                   // The blurb is a description, not part of the link's name —
                   // otherwise both spans run together into one unreadable label.
-                  aria-label={service.label}
+                  aria-label={`خدمة ${service.label}`}
                   aria-describedby={service.blurb ? `${panelId}${service.path}` : undefined}
-                  className="block rounded-xl border border-transparent p-3 transition hover:border-secondary-line hover:bg-secondary-soft/50 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark"
+                  className="group flex h-full gap-3 rounded-xl border border-transparent p-3 transition hover:border-secondary-line hover:bg-secondary-soft/60 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark"
                 >
-                  <span className="block font-bold text-ink">{service.label}</span>
-                  {service.blurb && (
-                    <span
-                      id={`${panelId}${service.path}`}
-                      className="mt-1 block text-xs leading-relaxed text-muted"
-                    >
-                      {service.blurb}
-                    </span>
-                  )}
-                </Link>
+                  {/* The same photo the service leads with on the home page, so
+                      the menu entry and the card read as the same thing. */}
+                  <span
+                    aria-hidden="true"
+                    className="h-14 w-14 shrink-0 overflow-hidden rounded-xl bg-secondary-soft"
+                  >
+                    <img
+                      src={service.photo?.src ?? '/placeholder-photo.svg'}
+                      alt=""
+                      loading="lazy"
+                      decoding="async"
+                      className="h-full w-full object-cover transition-transform duration-500 ease-out group-hover:scale-105"
+                    />
+                  </span>
 
-                {service.children && (
-                  // Nested sub-ministries, kept visible rather than behind a
-                  // second hover step. The orange rule marks the nesting.
-                  <ul className="mt-1 space-y-0.5 border-e-2 border-secondary/40 pe-3 ms-3">
-                    {service.children.map((child) => (
-                      <li key={child.path}>
-                        <Link
-                          to={child.path}
-                          className="block rounded-lg px-2 py-1.5 text-sm font-semibold text-body transition hover:bg-secondary/30 hover:text-secondary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark"
-                        >
-                          {child.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
+                  <span className="min-w-0">
+                    {/* The arrow is the one moving part: the gap opens on hover. */}
+                    <span className="flex items-center gap-1.5 font-bold leading-snug text-ink transition-all duration-300 group-hover:gap-2.5">
+                      خدمة {service.label}
+                      <ArrowLeft
+                        size={14}
+                        aria-hidden="true"
+                        className="shrink-0 text-secondary-dark"
+                      />
+                    </span>
+                    {service.blurb && (
+                      <span
+                        id={`${panelId}${service.path}`}
+                        className="mt-1 block text-xs leading-relaxed text-muted"
+                      >
+                        {service.blurb}
+                      </span>
+                    )}
+                  </span>
+                </Link>
               </li>
             ))}
           </ul>

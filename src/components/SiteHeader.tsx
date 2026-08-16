@@ -164,6 +164,8 @@ export function SiteHeader() {
               id="mobile-services"
               className="mb-1 ms-2 space-y-0.5 border-e-2 border-secondary/40 pe-2"
             >
+              {/* Services only — the sub-ministries under السودانيين live on
+                  that page's own tabs, as they do in the desktop menu. */}
               {serviceNav.map((service) => (
                 <li key={service.path}>
                   <NavLink
@@ -177,29 +179,8 @@ export function SiteHeader() {
                       }`
                     }
                   >
-                    {service.label}
+                    خدمة {service.label}
                   </NavLink>
-
-                  {service.children && (
-                    <ul className="ms-3 space-y-0.5 border-e-2 border-secondary/25 pe-2">
-                      {service.children.map((child) => (
-                        <li key={child.path}>
-                          <NavLink
-                            to={child.path}
-                            className={({ isActive }) =>
-                              `block rounded-lg px-4 py-2 text-sm font-semibold transition ${
-                                isActive
-                                  ? 'text-secondary-dark'
-                                  : 'text-label hover:text-secondary-dark'
-                              }`
-                            }
-                          >
-                            {child.label}
-                          </NavLink>
-                        </li>
-                      ))}
-                    </ul>
-                  )}
                 </li>
               ))}
             </ul>

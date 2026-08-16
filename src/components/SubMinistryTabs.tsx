@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 import { SectionList } from './SectionList'
 import { TabStrip } from './TabStrip'
 import { panelId, tabId } from './tabIds'
-import { buildBlocks, buildContactBlock, type Block } from './sectionBlocks'
+import { buildBlocks, type Block } from './sectionBlocks'
 import { sectionIndex, sectionPath, type Ministry } from '../data/ministries'
 
 interface SubMinistryTabsProps {
@@ -36,7 +36,7 @@ export function SubMinistryTabs({ ministry, sub }: SubMinistryTabsProps) {
     ) : null,
   }
 
-  const blocks = [lead, ...buildBlocks(section), buildContactBlock()]
+  const blocks = [lead, ...buildBlocks(section)]
 
   return (
     // The tab bar joins the header in the sticky stack; anchors offset by both.

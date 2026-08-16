@@ -9,6 +9,9 @@ interface TabStripProps {
   idPrefix: string
   /** Scroll horizontally instead of wrapping (for long labels on phones). */
   scrollable?: boolean
+  /** Centre the tabs once they wrap. A scrolling strip stays start-aligned,
+   *  so the first tab is never pushed out of reach on a narrow screen. */
+  centered?: boolean
 }
 
 /** Accessible tab strip: ARIA tabs pattern with roving tabindex and RTL-aware
@@ -19,6 +22,7 @@ export function TabStrip({
   onChange,
   idPrefix,
   scrollable = false,
+  centered = false,
 }: TabStripProps) {
   const refs = useRef<(HTMLButtonElement | null)[]>([])
 
@@ -53,11 +57,11 @@ export function TabStrip({
     <div
       role="tablist"
       onKeyDown={onKeyDown}
-      className={
+      className={`${
         scrollable
           ? 'flex gap-2.5 overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] sm:flex-wrap sm:overflow-visible [&::-webkit-scrollbar]:hidden'
           : 'flex flex-wrap gap-2.5'
-      }
+      }${centered ? (scrollable ? ' sm:justify-center' : ' justify-center') : ''}`}
     >
       {labels.map((label, i) => {
         const selected = i === active

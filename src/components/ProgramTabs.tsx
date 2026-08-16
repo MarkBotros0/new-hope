@@ -17,6 +17,7 @@ export function ProgramTabs({ programs }: { programs: Program[] }) {
         onChange={setActive}
         idPrefix={prefix}
         scrollable
+        centered
       />
 
       <div

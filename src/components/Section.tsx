@@ -33,7 +33,9 @@ export function Section({
   children,
 }: SectionProps) {
   const headingId = useId()
-  const pad = density === 'tight' ? 'py-9 sm:py-11' : 'py-12 sm:py-16'
+  // Adjacent bands stack their padding, so these are half the gap between two
+  // sections — keep them modest or the page reads as a set of islands.
+  const pad = density === 'tight' ? 'py-6 sm:py-7' : 'py-8 sm:py-10'
   const centred = align === 'center'
 
   return (

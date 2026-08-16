@@ -17,13 +17,15 @@ function ServantCard({ servant }: { servant: Servant }) {
 }
 
 interface ServantsCardProps {
-  servants: Servant[]
+  /** Named members with portraits. None are published at the moment, so the
+   *  card is note-only — the list stays here for when they are. */
+  servants?: Servant[]
   /** Extra line(s), e.g. a team-size count when there are no individual names,
    *  or a short paragraph on how the team is currently organised. */
   note?: string | string[]
 }
 
-export function ServantsCard({ servants, note }: ServantsCardProps) {
+export function ServantsCard({ servants = [], note }: ServantsCardProps) {
   const hasServants = servants.length > 0
   const notes = note === undefined ? [] : Array.isArray(note) ? note : [note]
   // A single line stays a strong stand-alone statement; several are body prose.
