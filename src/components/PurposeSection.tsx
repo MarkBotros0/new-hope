@@ -11,7 +11,7 @@ export function PurposeSection({ vision }: PurposeSectionProps) {
 
   return (
     <div className="rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-white p-6 shadow-card sm:p-7">
-      <p className="text-lg leading-loose text-body">{vision}</p>
+      <p className="text-center text-lg leading-loose text-body">{vision}</p>
     </div>
   )
 }

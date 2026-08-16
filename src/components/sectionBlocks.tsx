@@ -2,7 +2,6 @@ import type { ReactNode } from 'react'
 import { StatsCard } from './StatsCard'
 import { ServicesCard } from './ServicesCard'
 import { AudienceCard } from './AudienceCard'
-import { ServantsCard } from './ServantsCard'
 import { ProgramTabs } from './ProgramTabs'
 import { PurposeSection } from './PurposeSection'
 import type { MinistrySection } from '../data/ministries'
@@ -25,17 +24,18 @@ export function buildBlocks(
   const { includePurpose = true } = opts
   const blocks: Block[] = []
 
-  if (section.stats?.length) {
-    blocks.push({ key: 'stats', density: 'tight', content: <StatsCard stats={section.stats} /> })
-  }
-
-  // Vision only — the مهمة panel is not shown on the service pages.
+  // The vision leads: what the service is for, before any count of what it
+  // has done. Vision only — the مهمة panel is not shown on the service pages.
   if (includePurpose && section.vision) {
     blocks.push({
       key: 'purpose',
       title: 'رؤيتنا',
       content: <PurposeSection vision={section.vision} />,
     })
+  }
+
+  if (section.stats?.length) {
+    blocks.push({ key: 'stats', density: 'tight', content: <StatsCard stats={section.stats} /> })
   }
 
   if (section.goals) {
@@ -72,16 +72,6 @@ export function buildBlocks(
       lead: section.audience.lead,
       density: 'tight',
       content: <AudienceCard items={section.audience.items} />,
-    })
-  }
-
-  // Named members are not published; the band describes the team as a whole,
-  // so it only appears where the section carries a team note.
-  if (section.teamNote) {
-    blocks.push({
-      key: 'team',
-      title: 'فريق الخدمة',
-      content: <ServantsCard note={section.teamNote} />,
     })
   }
 

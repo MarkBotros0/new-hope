@@ -4,17 +4,17 @@ import type { Stat } from '../data/ministries'
  *  with a vivid rule as the card's single accent. Non-interactive. */
 export function StatsCard({ stats }: { stats: Stat[] }) {
   return (
-    <div className="grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4">
+    <div className="mx-auto grid max-w-4xl grid-cols-2 gap-3 sm:gap-4 lg:grid-cols-4">
       {stats.map((s) => (
         <div
           key={s.label}
-          className="rounded-2xl border border-secondary-line bg-white p-5 text-center shadow-card sm:p-6"
+          className="rounded-xl border border-secondary-line bg-white p-3.5 text-center shadow-card sm:p-4"
         >
-          <p className="text-4xl font-black leading-tight text-secondary-dark sm:text-5xl">
+          <p className="text-2xl font-black leading-tight text-secondary-dark sm:text-3xl">
             {s.value}
           </p>
-          <span className="mx-auto mt-3 block h-1.5 w-10 rounded-full bg-secondary" />
-          <p className="mt-3 text-sm font-semibold leading-relaxed text-body">
+          <span className="mx-auto mt-2 block h-1 w-8 rounded-full bg-secondary" />
+          <p className="mt-2 text-xs font-semibold leading-relaxed text-body sm:text-sm">
             {s.label}
           </p>
         </div>
