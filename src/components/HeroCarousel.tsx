@@ -84,7 +84,7 @@ export function HeroCarousel({ photos, interval = 2000 }: HeroCarouselProps) {
       aria-label="من أرشيف الخدمة"
       // Square and edge-to-edge on phones, a framed card from `sm` up: a
       // full-bleed panel with rounded corners and side borders reads broken.
-      className="relative isolate h-[26rem] overflow-hidden border-y border-secondary-line bg-brand shadow-card sm:h-[30rem] sm:rounded-3xl sm:border lg:h-[34rem]"
+      className="relative isolate h-[26rem] overflow-hidden border-b border-secondary-line bg-brand shadow-card sm:h-[30rem] sm:rounded-3xl sm:border lg:h-[34rem]"
     >
       {photos.map((photo, i) => {
         const inMotion = i === index || i === leaving
