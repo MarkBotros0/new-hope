@@ -3,11 +3,11 @@ import { Section } from '../components/Section'
 import { TenetCards } from '../components/TenetCards'
 import { about } from '../data/ministries'
 
-/** The card chrome the أهدافنا and قيمنا cards use (see `TenetCards`), so the
- *  vision and mission bands sit in the same family instead of introducing a
- *  second card style on one page. */
-const aboutCard =
-  'rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-white p-6 shadow-card sm:p-7'
+/** A labelled row inside the vision/mission spread: the label takes a narrow
+ *  fixed column and the text the rest, so both rows share one label edge. The
+ *  columns only split from `md` — below that the label stacks above its text,
+ *  where a 9rem column would leave the prose nothing to sit in. */
+const aboutRow = 'grid gap-4 p-6 sm:p-8 md:grid-cols-[9rem_1fr] md:gap-10 md:p-10'
 
 /** من نحن — the organisation's own statement of itself: vision, mission, the
  *  three pillars the work rests on, and the seven values it is held to. Every
@@ -39,33 +39,44 @@ export function AboutPage() {
           drawn. */}
       <h1 className="sr-only">من نحن</h1>
 
-      {/* Both cards wear the same chrome as the أهدافنا and قيمنا cards below —
-          white, orange top rule, same radius and padding — so the page reads as
-          one set of cards rather than three card styles. Only the type inside
-          differs, because a one-line statement and three paragraphs of prose
-          are not the same kind of content. */}
-      <Section title="رؤيتنا">
-        <div className={aboutCard + ' text-center'}>
-          <p className="text-lg leading-[1.9] text-ink sm:text-xl">
-            {about.vision}
-          </p>
-        </div>
-      </Section>
+      {/* One spread, two labelled rows, rather than two stacked boxes. The
+          label sits in its own narrow column with the text beside it, so a
+          one-line vision and a two-paragraph mission each fill their row
+          instead of leaving a box mostly empty, and the pair reads as one
+          statement of purpose with two parts. Chrome matches the أهدافنا and
+          قيمنا cards below. */}
+      <Section title="رؤيتنا ومهمتنا">
+        <div className="overflow-hidden rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-white shadow-card">
+          <div className={aboutRow}>
+            <div>
+              <h3 className="text-lg font-black text-ink">رؤيتنا</h3>
+              <span className="mt-2 block h-1 w-10 rounded-full bg-secondary" />
+            </div>
+            {/* The vision outranks the mission prose on size, not on weight —
+                it is the aspiration the rest of the page answers to. */}
+            <p className="text-xl leading-[1.9] text-ink sm:text-2xl sm:leading-[1.8]">
+              {about.vision}
+            </p>
+          </div>
 
-      <Section title="مهمتنا">
-        <div className={aboutCard}>
-          <div className="mx-auto max-w-4xl space-y-4">
-            {about.mission.map((paragraph) => (
-              <p key={paragraph} className="leading-loose text-body">
-                {paragraph}
-              </p>
-            ))}
+          <div className={`border-t border-secondary-line ${aboutRow}`}>
+            <div>
+              <h3 className="text-lg font-black text-ink">مهمتنا</h3>
+              <span className="mt-2 block h-1 w-10 rounded-full bg-secondary" />
+            </div>
+            <div className="space-y-4">
+              {about.mission.map((paragraph) => (
+                <p key={paragraph} className="leading-loose text-body">
+                  {paragraph}
+                </p>
+              ))}
+            </div>
           </div>
         </div>
       </Section>
 
       <Section id="pillars" className="scroll-anchor" title="أهدافنا الأساسية">
-        <TenetCards items={about.pillars} columns={3} />
+        <TenetCards items={about.pillars} columns={3} englishTitles={false} />
       </Section>
 
       <Section id="values" className="scroll-anchor" title="قيمنا الأساسية">

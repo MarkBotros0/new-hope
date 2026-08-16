@@ -12,8 +12,9 @@ interface TenetCardsProps {
    *  comfortable line length for the longer statements, so they only split
    *  from `md`; two columns are roomy enough to split at `sm`. */
   columns?: 2 | 3
-  /** Show the English name under the Arabic one. Off for قيمنا, where the
-   *  client wants the Arabic to stand alone. */
+  /** Show the English name under the Arabic one. Both callers currently pass
+   *  false — the client wants the Arabic to stand alone — but `titleEn` is
+   *  still carried in the data, so this stays a switch rather than a deletion. */
   englishTitles?: boolean
 }
 
