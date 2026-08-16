@@ -12,16 +12,16 @@ import {
   MirrorRound,
   Shield,
   Sprout,
-  Target,
   Triangle,
   Users,
+  type LucideIcon,
 } from 'lucide-react'
 
 /** One icon per الموضوعات topic, each saying something about the topic itself
  *  — a mirror for self-image, a shield for spiritual warfare — rather than the
- *  same tick eight times over. Detail lists that are goals rather than topics
- *  fall through to the target. */
-const icons: Record<string, typeof Target> = {
+ *  same tick eight times over. Anything not named here has no icon: a generic
+ *  mark repeated down a list says less than none at all. */
+const icons: Record<string, LucideIcon> = {
   'مسح شامل للكتاب المقدس': BookOpen,
   'صور مغلوطة عن الله': ImageOff,
   'الشر والألم': HeartCrack,
@@ -41,6 +41,6 @@ const icons: Record<string, typeof Target> = {
   'المحور الفكري واللاهوتي': Brain,
 }
 
-export function topicIcon(label: string) {
-  return icons[label] ?? Target
+export function topicIcon(label: string): LucideIcon | undefined {
+  return icons[label]
 }

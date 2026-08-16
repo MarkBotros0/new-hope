@@ -1,10 +1,5 @@
+import { toArabicNumeral } from './numerals'
 import type { Tenet } from '../data/ministries'
-
-/** The rest of the site writes its numbers in Arabic-Indic digits; the card
- *  numerals follow suit rather than mixing the two systems on one page. */
-const arabicDigits = '٠١٢٣٤٥٦٧٨٩'
-const toArabicNumeral = (n: number) =>
-  String(n).replace(/\d/g, (d) => arabicDigits[Number(d)])
 
 interface TenetCardsProps {
   items: Tenet[]

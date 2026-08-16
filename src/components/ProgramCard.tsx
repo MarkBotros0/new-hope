@@ -1,3 +1,4 @@
+import { toArabicNumeral } from './numerals'
 import { topicIcon } from './topicIcons'
 import type { Program } from '../data/ministries'
 
@@ -5,6 +6,11 @@ import type { Program } from '../data/ministries'
  *  chips, paragraphs, and an optional detail block. */
 export function ProgramCard({ program }: { program: Program }) {
   const { title, titleEn, meta, paragraphs, details } = program
+
+  // A topic list earns an icon per entry; a list of goals has nothing an icon
+  // could honestly say, so it takes the numbered card من نحن uses for أهدافنا.
+  const items = details?.items
+  const numbered = !!items && !items.some((it) => topicIcon(it))
 
   return (
     <div className="text-center">
@@ -47,23 +53,50 @@ export function ProgramCard({ program }: { program: Program }) {
         <div className="mt-6 border-t border-line pt-5">
           <h4 className="mb-4 font-bold text-ink">{details.heading}</h4>
 
-          {details.items && (
+          {items && numbered && (
+            // Same card as أهدافنا الأساسية on من نحن: numbered chip, orange
+            // top rule, statement below it.
+            <ul className="mx-auto grid max-w-5xl gap-5 sm:gap-6 md:grid-cols-3">
+              {items.map((it, i) => (
+                <li
+                  key={it}
+                  className={`flex flex-col rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-white p-6 shadow-card sm:p-7 ${
+                    items.length % 3 === 1 && i === items.length - 1
+                      ? 'md:col-span-3 md:w-[calc((100%-3rem)/3)] md:justify-self-center'
+                      : ''
+                  }`}
+                >
+                  <span
+                    aria-hidden="true"
+                    className="flex h-10 w-10 shrink-0 items-center justify-center self-start rounded-full bg-secondary-soft text-base font-black text-secondary-dark"
+                  >
+                    {toArabicNumeral(i + 1)}
+                  </span>
+                  <p className="mt-4 text-start leading-loose text-body">{it}</p>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {items && !numbered && (
             <ul className="mx-auto grid max-w-3xl gap-2.5 sm:grid-cols-2">
-              {details.items.map((it, i) => {
+              {items.map((it, i) => {
                 const Icon = topicIcon(it)
                 return (
                   <li
                     key={it}
                     className={`flex items-center justify-center gap-2.5 rounded-xl border border-secondary-line bg-white p-3.5 shadow-card ${
                       // A last row holding one card centres under the pair above.
-                      details.items!.length % 2 === 1 && i === details.items!.length - 1
+                      items.length % 2 === 1 && i === items.length - 1
                         ? 'sm:col-span-2 sm:w-[calc((100%-0.625rem)/2)] sm:justify-self-center'
                         : ''
                     }`}
                   >
-                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">
-                      <Icon size={17} aria-hidden="true" />
-                    </span>
+                    {Icon && (
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">
+                        <Icon size={17} aria-hidden="true" />
+                      </span>
+                    )}
                     {/* Start-aligned so a topic that wraps keeps one edge. */}
                     <span className="text-start text-sm font-semibold leading-relaxed text-body">
                       {it}
@@ -84,9 +117,11 @@ export function ProgramCard({ program }: { program: Program }) {
                     className="rounded-xl border border-secondary-line bg-white p-5 shadow-card"
                   >
                     <div className="flex items-center justify-center gap-2.5">
-                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">
-                        <Icon size={17} aria-hidden="true" />
-                      </span>
+                      {Icon && (
+                        <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">
+                          <Icon size={17} aria-hidden="true" />
+                        </span>
+                      )}
                       <p className="text-start font-bold text-ink">{it.title}</p>
                     </div>
                     <p className="mt-3 leading-relaxed text-body">{it.body}</p>

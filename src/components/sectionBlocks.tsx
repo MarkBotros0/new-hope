@@ -4,7 +4,6 @@ import { ServicesCard } from './ServicesCard'
 import { AudienceCard } from './AudienceCard'
 import { ServantsCard } from './ServantsCard'
 import { ProgramTabs } from './ProgramTabs'
-import { ArchiveGallery } from './ArchiveGallery'
 import { PurposeSection } from './PurposeSection'
 import type { MinistrySection } from '../data/ministries'
 
@@ -83,16 +82,6 @@ export function buildBlocks(
       key: 'team',
       title: 'فريق الخدمة',
       content: <ServantsCard note={section.teamNote} />,
-    })
-  }
-
-  if (section.archiveSlots || section.archive?.length) {
-    blocks.push({
-      key: 'archive',
-      title: 'من أرشيف الخدمة والفعاليات',
-      content: (
-        <ArchiveGallery count={section.archiveSlots ?? 0} photos={section.archive} />
-      ),
     })
   }
 
