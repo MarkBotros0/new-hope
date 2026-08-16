@@ -99,6 +99,9 @@ export interface Ministry {
   navBlurb?: string
   /** Photo for the hero's image half. Falls back to the placeholder tile. */
   heroPhoto?: ArchivePhoto
+  /** Photo for the home service card, when a different shot reads better at
+   *  card size than the page hero does. Defaults to `heroPhoto`. */
+  cardPhoto?: ArchivePhoto
   sections: MinistrySection[]
 }
 
@@ -115,6 +118,10 @@ const youth: Ministry = {
   heroPhoto: {
     src: '/archive/youth-discipleship-school-group.jpg',
     alt: 'صورة جماعية لمشاركي مدرسة التلمذة في حديقة، يرتدون تيشيرت المدرسة الأبيض.',
+  },
+  cardPhoto: {
+    src: '/archive/youth-discipleship-school-lecture.jpg',
+    alt: 'شباب يتابعون محاضرة في مدرسة التلمذة ويدوّنون ملاحظاتهم أمام كتبهم المقدسة.',
   },
   sections: [
     {
@@ -543,6 +550,8 @@ export interface NavNode {
   label: string
   path: string
   blurb?: string
+  /** The service's own hero photo, reused on the home cards. */
+  photo?: ArchivePhoto
   /** Sub-ministries, surfaced as a nested menu so none is hidden behind a tab. */
   children?: NavNode[]
 }
@@ -553,6 +562,7 @@ export const serviceNav: NavNode[] = ministries.map((m) => ({
   label: m.navLabel,
   path: `/${m.slug}`,
   blurb: m.navBlurb,
+  photo: m.cardPhoto ?? m.heroPhoto,
   children:
     m.sections.length > 1
       ? m.sections.map((s) => ({
@@ -580,7 +590,15 @@ export const site = {
   principles: youth.sections[0].principles ?? [],
 } as const
 
+/** Held back from the home carousel — they still appear on their own service
+ *  page, but read as generic meeting shots at hero size. */
+const notInHero = new Set([
+  '/archive/leaders-evangelical-council-training-2025.jpg',
+  '/archive/leaders-upper-egypt-training-2025.jpg',
+])
+
 /** Photos already published on the service pages, reused as a home highlight. */
 export const highlightPhotos: ArchivePhoto[] = ministries
   .flatMap((m) => m.sections.flatMap((s) => s.archive ?? []))
+  .filter((photo) => !notInHero.has(photo.src))
   .slice(0, 6)
