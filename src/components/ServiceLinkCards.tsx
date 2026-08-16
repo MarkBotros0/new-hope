@@ -2,11 +2,10 @@ import { Link } from 'react-router-dom'
 import { ArrowLeft } from 'lucide-react'
 import { serviceNav } from '../data/ministries'
 
-/** The three services as linked cards, each led by its own photo and listing
- *  its sub-services, so the full shape of the ministry is visible outside the
- *  nav menu too. The photo panel is the card's primary link — the title's
- *  ::after stretches across it — while the sub-service rows below stay
- *  separately clickable. */
+/** The services as cards, each led by its own photo, so the shape of the work
+ *  is visible outside the nav menu too. Only "تعرّف على الخدمة" is clickable —
+ *  the card and its title are not links, so there is one obvious target rather
+ *  than a whole panel that happens to navigate. */
 export function ServiceLinkCards() {
   return (
     <ul className="grid gap-5 md:grid-cols-2">
@@ -36,30 +35,24 @@ export function ServiceLinkCards() {
               <span className="mb-3 block h-1 w-10 rounded-full bg-secondary transition-all duration-300 group-hover:w-16" />
               {/* The nav labels are shorthand (الشباب…); on a card standing on
                   its own the full "خدمة …" name reads better. */}
-              <h3 className="text-xl font-black text-white">
-                <Link
-                  to={service.path}
-                  className="rounded after:absolute after:inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand"
-                >
-                  خدمة {service.label}
-                </Link>
-              </h3>
+              <h3 className="text-xl font-black text-white">خدمة {service.label}</h3>
             </div>
           </div>
 
           <div className="flex flex-1 flex-col p-6">
             {service.blurb && <p className="leading-loose text-body">{service.blurb}</p>}
 
-            {/* Echoes the panel link's destination, so it stays out of the
-                accessibility tree rather than reading as a duplicate link.
-                Sub-services live on the service page itself. */}
-            <span
-              aria-hidden="true"
-              className="mt-auto inline-flex items-center gap-1.5 self-start pt-5 text-sm font-bold text-secondary-dark transition-all duration-300 group-hover:gap-2.5"
+            {/* The card's only link. Every card would otherwise announce the
+                same "تعرّف على الخدمة", so the accessible name carries the
+                service it belongs to. */}
+            <Link
+              to={service.path}
+              aria-label={`تعرّف على خدمة ${service.label}`}
+              className="mt-auto inline-flex items-center gap-1.5 self-start rounded pt-5 text-sm font-bold text-secondary-dark transition-all duration-300 hover:gap-2.5 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-2"
             >
               تعرّف على الخدمة
-              <ArrowLeft size={16} />
-            </span>
+              <ArrowLeft size={16} aria-hidden="true" />
+            </Link>
           </div>
         </li>
       ))}
