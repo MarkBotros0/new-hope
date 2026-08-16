@@ -27,7 +27,7 @@ export function MinistryPage() {
         <p className="mt-3 text-body">لم نتمكّن من العثور على هذه الصفحة.</p>
         <Link
           to="/"
-          className="mt-6 inline-block rounded-full bg-secondary-dark px-6 py-2.5 text-sm font-bold text-white transition hover:bg-secondary-deep"
+          className="mt-6 inline-block rounded-full bg-action px-6 py-2.5 text-sm font-bold text-action-ink transition hover:bg-action-hover"
         >
           العودة إلى الصفحة الرئيسية
         </Link>

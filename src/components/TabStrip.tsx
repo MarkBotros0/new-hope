@@ -76,7 +76,7 @@ export function TabStrip({
             onClick={() => onChange(i)}
             className={`shrink-0 whitespace-nowrap rounded-full px-5 py-2.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-2 ${
               selected
-                ? 'bg-secondary-dark text-white shadow-control'
+                ? 'bg-action text-action-ink shadow-control'
                 : 'border border-line-strong bg-white text-body hover:border-secondary-dark hover:text-secondary-dark'
             }`}
           >

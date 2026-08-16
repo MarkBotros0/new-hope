@@ -15,10 +15,10 @@ interface ButtonProps {
 const base =
   'inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-2'
 
-// Orange carries the actions. `secondary-dark` clears AA against white text
-// (5.9:1); the vivid logo orange would not, so it stays on non-text marks.
+// The fill and its label are both tokens, so a solid action always carries a
+// label that clears AA against whatever orange the system is set to.
 const variants = {
-  solid: 'bg-secondary-dark text-white shadow-control hover:bg-secondary-deep',
+  solid: 'bg-action text-action-ink shadow-control hover:bg-action-hover',
   outline:
     'border border-secondary-dark bg-white text-secondary-dark hover:bg-secondary-soft',
 }

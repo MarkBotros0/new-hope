@@ -19,12 +19,24 @@ interface TenetCardsProps {
 export function TenetCards({ items, columns = 2 }: TenetCardsProps) {
   const grid = columns === 3 ? 'md:grid-cols-3' : 'sm:grid-cols-2'
 
+  // A last row left holding one card sits against the start edge with an empty
+  // cell beside it. Let that card span the row and take a single column's width
+  // back (the row minus its gaps, divided by the column count), so it centres
+  // under the pairs above instead of hanging off one side.
+  const lastIsAlone = items.length % columns === 1
+  const centreOrphan =
+    columns === 3
+      ? 'md:col-span-3 md:w-[calc((100%-3rem)/3)] md:justify-self-center'
+      : 'sm:col-span-2 sm:w-[calc((100%-1.5rem)/2)] sm:justify-self-center'
+
   return (
     <ol className={`grid gap-5 sm:gap-6 ${grid}`}>
       {items.map((item, i) => (
         <li
           key={item.title}
-          className="flex flex-col rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-white p-6 shadow-card sm:p-7"
+          className={`flex flex-col rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-white p-6 shadow-card sm:p-7 ${
+            lastIsAlone && i === items.length - 1 ? centreOrphan : ''
+          }`}
         >
           <div className="flex items-start gap-3">
             <span

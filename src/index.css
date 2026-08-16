@@ -7,12 +7,22 @@
   --color-brand: #1a1a1a; /* structural black — logo mark, footer field */
   --color-brand-dark: #000000;
 
-  /* Orange ramp. Vivid `secondary` is the logo colour and is reserved for
-     non-text marks (rules, washes, icons on dark); `secondary-dark` is the
-     text/action weight that clears AA on white, on tint, and on soft. */
-  --color-secondary: #f05a27; /* logo orange — rules, washes, graphics */
-  --color-secondary-dark: #b23c14; /* actions + orange text (AA 5.9:1 on white) */
-  --color-secondary-deep: #8f2f10; /* hover/pressed on solid orange */
+  /* Orange ramp, split by job. Vivid `secondary` is the logo colour: it fills
+     solid actions and carries rules and washes. White on it is only 3.4:1, so
+     a filled control takes ink instead (5.1:1) — the logo's own black-on-orange
+     pairing. `secondary-dark` is the same hue dropped to a text weight, for
+     orange *type* on white and on soft, where it clears AA. */
+  --color-secondary: #f05a27; /* logo orange — rules, washes, accent bar */
+  --color-secondary-dark: #b23c14; /* orange text + focus rings (AA 5.9:1 on white) */
+
+  /* Filled actions sit a step lighter than the mark itself, and settle onto
+     the logo orange on hover — so pressing a control moves it toward the
+     brand rather than away from it. Both take ink (6.2:1 and 5.1:1). */
+  --color-action: #ff6b3d;
+  --color-action-hover: #f05a27;
+  /* The label on a filled action. A token rather than a fixed `text-brand` so
+     the fill and its label always move together. */
+  --color-action-ink: #1a1a1a;
   --color-secondary-soft: #ffe4d6; /* chip + icon surfaces (solid, prints true) */
   --color-secondary-line: #f7c3a8; /* warm hairline on orange surfaces */
 
@@ -28,14 +38,19 @@
   --color-page: #fdf6f2; /* the page itself — logo orange at ~6% over white */
 
   /* Shadows are cast in the brand's burnt orange rather than neutral grey, so
-     a lifted card still belongs to the same material as the page under it. */
-  --shadow-card: 0 26px 50px -18px rgb(120 50 20 / 0.55), 0 6px 14px -8px rgb(120 50 20 / 0.4);
-  --shadow-lift: 0 38px 72px -20px rgb(120 50 20 / 0.62), 0 10px 22px -10px rgb(120 50 20 / 0.45);
-  --shadow-header: 0 20px 32px -18px rgb(120 50 20 / 0.75);
+     a lifted card still belongs to the same material as the page under it.
+     They read `--shadow-rgb` (below) rather than a literal, so the whole depth
+     scale re-tints from one place when the orange changes. */
+  --shadow-card: 0 26px 50px -18px rgb(var(--shadow-rgb) / 0.55),
+    0 6px 14px -8px rgb(var(--shadow-rgb) / 0.4);
+  --shadow-lift: 0 38px 72px -20px rgb(var(--shadow-rgb) / 0.62),
+    0 10px 22px -10px rgb(var(--shadow-rgb) / 0.45);
+  --shadow-header: 0 20px 32px -18px rgb(var(--shadow-rgb) / 0.75);
   /* Small raised things — buttons, active pills, the gallery arrows. */
-  --shadow-control: 0 8px 16px -8px rgb(120 50 20 / 0.55);
+  --shadow-control: 0 8px 16px -8px rgb(var(--shadow-rgb) / 0.55);
   /* Overlays that float clear of the page: the الخدمات dropdown. */
-  --shadow-menu: 0 32px 60px -24px rgb(120 50 20 / 0.6), 0 8px 18px -10px rgb(120 50 20 / 0.35);
+  --shadow-menu: 0 32px 60px -24px rgb(var(--shadow-rgb) / 0.6),
+    0 8px 18px -10px rgb(var(--shadow-rgb) / 0.35);
 
   /* Arabic UI font */
   --font-sans: 'Cairo', system-ui, 'Segoe UI', sans-serif;
@@ -48,6 +63,14 @@
        derived from these. */
     --header-h: 4.75rem;
     --tabbar-h: 0rem;
+
+    /* The two warm tints the page is lit and grounded with, as bare channels
+       so they can be composited at several opacities. Kept out of `@theme`
+       because they are ingredients, not colours anything is painted with
+       directly — the shadow scale above and the ambient wash below read them. */
+    --shadow-rgb: 120 50 20;
+    --glow-rgb: 240 90 39;
+    --glow-floor-rgb: 143 47 16;
   }
 
   @media (min-width: 640px) {
@@ -87,11 +110,15 @@
     background-image:
       radial-gradient(
         135% 70% at 50% -10%,
-        rgb(240 90 39 / 0.28) 0%,
-        rgb(240 90 39 / 0.09) 45%,
-        rgb(240 90 39 / 0) 72%
+        rgb(var(--glow-rgb) / 0.28) 0%,
+        rgb(var(--glow-rgb) / 0.09) 45%,
+        rgb(var(--glow-rgb) / 0) 72%
       ),
-      radial-gradient(120% 45% at 50% 108%, rgb(143 47 16 / 0.1) 0%, rgb(143 47 16 / 0) 70%);
+      radial-gradient(
+        120% 45% at 50% 108%,
+        rgb(var(--glow-floor-rgb) / 0.1) 0%,
+        rgb(var(--glow-floor-rgb) / 0) 70%
+      );
   }
 
   h1,

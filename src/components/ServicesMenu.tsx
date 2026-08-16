@@ -62,7 +62,7 @@ export function ServicesMenu() {
         onClick={() => setOpen((v) => !v)}
         className={`inline-flex items-center gap-1.5 rounded-full px-4 py-1.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-2 ${
           active || open
-            ? 'bg-secondary-dark text-white'
+            ? 'bg-action text-action-ink'
             : 'text-body hover:bg-secondary/30 hover:text-secondary-dark'
         }`}
       >

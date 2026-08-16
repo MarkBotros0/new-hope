@@ -12,7 +12,7 @@ interface SlideState {
   index: number
   /** The slide being pushed out; -1 before the first move. */
   leaving: number
-  /** 1 = forward (the next photo arrives from the start side), -1 = back. */
+  /** 1 = forward (the next photo arrives from the end side), -1 = back. */
   direction: number
 }
 
@@ -22,7 +22,7 @@ const SLIDE_MS = 700
 /** Full-width hero slideshow. Each change slides the whole frame sideways —
  *  the incoming photo travels in from one edge while the outgoing one leaves
  *  by the other, the way a swipe would carry it. The page is RTL, so forward
- *  brings the next photo in from the left.
+ *  brings the next photo in from the right.
  *
  *  Only the two slides in motion are transitioned; the rest sit staged off
  *  frame, so wrapping from the last photo back to the first costs the same
@@ -73,9 +73,9 @@ export function HeroCarousel({ photos, interval = 2000 }: HeroCarouselProps) {
    *  Physical percentages, not logical ones — a transform ignores `dir`. */
   const offset = (i: number) => {
     if (i === index) return 0
-    if (i === leaving) return direction > 0 ? 100 : -100
+    if (i === leaving) return direction > 0 ? -100 : 100
     // Everything else waits on the side the next photo will arrive from.
-    return direction > 0 ? -100 : 100
+    return direction > 0 ? 100 : -100
   }
 
   return (

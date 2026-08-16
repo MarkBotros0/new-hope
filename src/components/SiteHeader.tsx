@@ -25,7 +25,7 @@ const pages = [
 function navPill(isActive: boolean) {
   return `rounded-full px-4 py-1.5 text-sm font-bold transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-2 ${
     isActive
-      ? 'bg-secondary-dark text-white'
+      ? 'bg-action text-action-ink'
       : 'text-body hover:bg-secondary/30 hover:text-secondary-dark'
   }`
 }
@@ -130,7 +130,7 @@ export function SiteHeader() {
               className={({ isActive }) =>
                 `rounded-xl px-4 py-2.5 text-sm font-bold transition ${
                   isActive
-                    ? 'bg-secondary-dark text-white'
+                    ? 'bg-action text-action-ink'
                     : 'text-body hover:bg-secondary/30 hover:text-secondary-dark'
                 }`
               }
