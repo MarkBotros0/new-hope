@@ -21,6 +21,14 @@ export interface Principle {
   body: string
 }
 
+/** A named pillar or value — Arabic name, its English counterpart, and the
+ *  statement that defines it. */
+export interface Tenet {
+  title: string
+  titleEn: string
+  body: string
+}
+
 export interface ArchivePhoto {
   /** Path under `public/archive/` — web-sized copies of the client's originals. */
   src: string
@@ -301,7 +309,7 @@ const sudanese: Ministry = {
   slug: 'sudanese',
   navLabel: 'السودانيين',
   title: 'خدمة السودانيين بمصر',
-  navBlurb: 'خدمة الأطفال والسيدات والقادة السودانيين اللاجئين في مصر بعد حرب أبريل ٢٠٢٣.',
+  navBlurb: 'خدمة الأطفال والسيدات والقادة السودانيين اللاجئين في مصر.',
   heroPhoto: {
     src: '/archive/sudanese-children-students-in-class.jpg',
     alt: 'تلاميذ سودانيون على مقاعدهم داخل الفصل وأمامهم كتبهم المصوّرة.',
@@ -567,15 +575,99 @@ export const site = {
   principles: youthLeaders.sections[0].principles ?? [],
 } as const
 
+// ---------------------------------------------------------------------------
+// من نحن — the organisation's own statement of identity: vision, mission,
+// the three pillars the work rests on, and the seven values it is held to.
+// Client-supplied and reproduced verbatim; nothing here is paraphrased.
+// ---------------------------------------------------------------------------
+export const about = {
+  vision:
+    'أن نمجّد الله من خلال الوصول إلى المحتاجيين برسالة الرجاء في المسيح.',
+  mission: [
+    'نلتزم في أمل جديد بأن نُعلن محبة المسيح ورجاءه في كنائسنا، من خلال الوصول للناس غير الموصول إليهم برسالة الإنجيل، ومرافقتهم في مسيرة تلمذة حيّة، وتمكين الكنائس لتعيش دعوتها وتخدم مجتمعاتها بفعالية.',
+    'نحرص أن نحقق هذا الالتزام بالشراكة مع الكنائس المحلية، وبطرق تحترم السياقات الثقافية والاجتماعية والدينية المتنوعة، وتُراعي احتياجات الأفراد والمجتمعات.',
+    'ويتم تنفيذ هذه الأهداف من خلال أدوات وأنشطة متنوعة ومرنة، تتكيف بحسب طبيعة السياق، واحتياجات الفئة أو الكنيسة التي نعمل معها.',
+  ],
+  pillars: [
+    {
+      title: 'الكرازة',
+      titleEn: 'Evangelism',
+      body: 'مشاركة الناس برسالة محبة المسيح وخلاصه، ودعوتهم لاتباعه كتلاميذ حقيقيين يعيشون له ويشبهونه. مع مراعاة السياقات الثقافية والاجتماعية، والحساسية الدينية والسياسية، وخصوصية كل الفئات المختلفة.',
+    },
+    {
+      title: 'التلمذة',
+      titleEn: 'Discipleship',
+      body: 'مسيرة مستمرة نعيشها مع أشخاص يسعون لاتباع المسيح، تشمل التعليم، والتشكيل الروحي، والرعاية، بهدف أن ينمو التلميذ ليحيا بحسب صورة المسيح، ويشارك الإنجيل مع الآخرين — مع مراعاة اختلاف النِسب بين هذه المكونات حسب مرحلة النضج الروحي، والاحتياجات النفسية، والسياق الثقافي، والعمر.',
+    },
+    {
+      title: 'تمكين الكنائس',
+      titleEn: 'Church Empowerment',
+      body: 'العمل مع الكنائس المحلية لتشجيعها وتقويتها لتعيش دعوتها كجسد حيّ للمسيح، ينمو في العمق الروحي، ويُعبّر عمليًا عن محبة المسيح من خلال أعمال الرحمة. يشمل ذلك بناء القدرات (Capacity Building) للقادة والفرق والخدمات، مع مراعاة السياق المحلي واحتياجات كل كنيسة ودورها في مجتمعها.',
+    },
+  ] as Tenet[],
+  values: [
+    {
+      title: 'النزاهة',
+      titleEn: 'Integrity',
+      body: 'نلتزم بالشفافية والأمانة في خدمتنا وعلاقاتنا ووقتنا ومواردنا أمام الله والآخرين.',
+    },
+    {
+      title: 'المسؤولية',
+      titleEn: 'Accountability',
+      body: 'نلتزم بمحاسبة بعضنا البعض بالمحبة ووضع أهداف للمشاريع وفريق العمل نعمل معًا لتحقيقها.',
+    },
+    {
+      title: 'القيادة الخادمة',
+      titleEn: 'Servant Leadership',
+      body: 'قيادتنا الخدمية ملتزمة بالخدمة بمحبة وتواضع وصدق ودعم وتوجيه وكرم وغفران وانضباط ذاتي.',
+    },
+    {
+      title: 'العمل الجماعي',
+      titleEn: 'Teamwork',
+      body: 'فريقنا هو أعظم أصولنا. معًا نشكل جزءًا من جسد المسيح، نحترم تميز كل منا، ونسعى للعيش وفق تعاليم المسيح.',
+    },
+    {
+      title: 'الشراكة',
+      titleEn: 'Partnership',
+      body: 'نلتزم بالشراكة مع الكنائس المحلية والمنظمات ذات التفكير المماثل لنشر أمل ومحبة المسيح.',
+    },
+    {
+      title: 'الإبداع',
+      titleEn: 'Creativity',
+      body: 'ندعم ونشجع النهج الإبداعي والمبتكر الذي يعكس قلب يسوع في الخدمة.',
+    },
+    {
+      title: 'الرحمة',
+      titleEn: 'Compassion',
+      body: 'نلتزم باتباع مثال يسوع الذي تأثر بالرحمة تجاه احتياجات البشر في عالم ساقط، بمحبة ومساعدة المهمشين والمضطهدين دينيًا أو اجتماعيًا.',
+    },
+  ] as Tenet[],
+}
+
 /** Held back from the home carousel — they still appear on their own service
- *  page, but read as generic meeting shots at hero size. */
+ *  page, but don't carry a full-width hero frame. */
 const notInHero = new Set([
   '/archive/leaders-evangelical-council-training-2025.jpg',
   '/archive/leaders-upper-egypt-training-2025.jpg',
+  '/archive/sudanese-women-discipleship-meeting.jpg',
 ])
 
-/** Photos already published on the service pages, reused as a home highlight. */
-export const highlightPhotos: ArchivePhoto[] = ministries
-  .flatMap((m) => m.sections.flatMap((s) => s.archive ?? []))
-  .filter((photo) => !notInHero.has(photo.src))
+/** Each section's home-eligible photos, in page order. */
+const sectionPhotos: ArchivePhoto[][] = ministries
+  .flatMap((m) => m.sections)
+  .map((s) => (s.archive ?? []).filter((photo) => !notInHero.has(photo.src)))
+  .filter((list) => list.length > 0)
+
+/** Photos already published on the service pages, reused as the home
+ *  carousel. Taken one per section per round, so the slideshow moves between
+ *  ministries instead of showing every youth photo before the first Sudanese
+ *  one. */
+export const highlightPhotos: ArchivePhoto[] = Array.from(
+  { length: Math.max(0, ...sectionPhotos.map((list) => list.length)) },
+  (_, round) =>
+    sectionPhotos
+      .map((list) => list[round])
+      .filter((photo): photo is ArchivePhoto => photo !== undefined),
+)
+  .flat()
   .slice(0, 6)

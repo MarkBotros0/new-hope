@@ -1,16 +1,13 @@
 import { useEffect } from 'react'
+import { Eye } from 'lucide-react'
 import { ServiceHero } from '../components/ServiceHero'
 import { Section } from '../components/Section'
-import { PrinciplesCard } from '../components/PrinciplesCard'
-import { ServiceLinkCards } from '../components/ServiceLinkCards'
-import { Pending } from '../components/Pending'
-import { site } from '../data/ministries'
+import { TenetCards } from '../components/TenetCards'
+import { about, site } from '../data/ministries'
 
-/** من نحن — the organisation at a glance.
- *
- *  Everything here is drawn from the service pages' own content. The client's
- *  documents carry no founding story or organisational profile, so that band
- *  stays an explicit PENDING placeholder rather than invented copy. */
+/** من نحن — the organisation's own statement of itself: vision, mission, the
+ *  three pillars the work rests on, and the seven values it is held to. Every
+ *  line is the client's own text (see `about` in `data/ministries`). */
 export function AboutPage() {
   useEffect(() => {
     document.title = 'من نحن — أمل جديد'
@@ -22,53 +19,42 @@ export function AboutPage() {
         <ServiceHero
           eyebrow={site.tagline}
           title="من نحن"
-          description={site.intro}
           actions={[
-            { label: 'مجالات خدمتنا', href: '#areas' },
-            { label: 'تواصل معنا', href: '#contact', variant: 'outline' },
+            { label: 'ركائزنا الأساسية', href: '#pillars' },
+            { label: 'قيمنا الأساسية', href: '#values', variant: 'outline' },
           ]}
         />
       </div>
 
-      <Section
-        id="areas"
-        className="scroll-anchor"
-        eyebrow="مجالات الخدمة"
-        title="أين نخدم"
-        lead="مجالان رئيسيان، وتحت خدمة السودانيين ثلاث خدمات فرعية."
-      >
-        <ServiceLinkCards />
-      </Section>
-
-      <Section tone="tint" title="مبادئنا الأساسية">
-        <PrinciplesCard principles={site.principles} />
-      </Section>
-
-      <Section title="نبذة عن المؤسسة" density="tight">
-        <div className="max-w-3xl rounded-2xl border border-secondary-line bg-white p-6">
-          <p className="leading-loose text-body">
-            نبذة تعريفية عن نشأة الخدمة وهيكلها التنظيمي وشركائها — بانتظار
-            النص من المؤسسة.
+      {/* The vision is one sentence and carries the page — it gets its own
+          band rather than sharing a row with the mission. */}
+      <Section title="رؤيتنا">
+        <div className="rounded-2xl border border-secondary-line bg-white p-6 shadow-card sm:p-8">
+          <span className="flex h-11 w-11 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">
+            <Eye size={20} aria-hidden="true" />
+          </span>
+          <p className="mt-5 max-w-3xl text-xl font-bold leading-loose text-ink sm:text-2xl">
+            {about.vision}
           </p>
-          <Pending className="mt-3" />
         </div>
       </Section>
 
-      <Section tone="tint" title="للتواصل" density="tight" id="contact" className="scroll-anchor">
-        <div className="grid gap-6 sm:grid-cols-2">
-          {[
-            { id: 'about-contact', heading: 'تواصل معنا' },
-            { id: 'about-directions', heading: 'كيف تصل إلينا' },
-          ].map((item) => (
-            <div
-              key={item.id}
-              className="rounded-2xl border border-secondary-line bg-white p-6"
-            >
-              <h3 className="text-lg font-bold text-ink">{item.heading}</h3>
-              <Pending className="mt-3" />
-            </div>
+      <Section tone="tint" title="مهمتنا">
+        <div className="max-w-3xl space-y-4">
+          {about.mission.map((paragraph) => (
+            <p key={paragraph} className="leading-loose text-body">
+              {paragraph}
+            </p>
           ))}
         </div>
+      </Section>
+
+      <Section id="pillars" className="scroll-anchor" title="ركائزنا الأساسية">
+        <TenetCards items={about.pillars} columns={3} />
+      </Section>
+
+      <Section id="values" className="scroll-anchor" tone="tint" title="قيمنا الأساسية">
+        <TenetCards items={about.values} columns={2} />
       </Section>
     </main>
   )
