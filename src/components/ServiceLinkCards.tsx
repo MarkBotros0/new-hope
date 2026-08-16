@@ -9,7 +9,7 @@ import { serviceNav } from '../data/ministries'
  *  separately clickable. */
 export function ServiceLinkCards() {
   return (
-    <ul className="grid gap-5 md:grid-cols-3">
+    <ul className="grid gap-5 md:grid-cols-2">
       {serviceNav.map((service) => (
         <li
           key={service.path}

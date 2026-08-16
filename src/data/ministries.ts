@@ -106,15 +106,16 @@ export interface Ministry {
 }
 
 // ---------------------------------------------------------------------------
-// Tab 1 — الشباب (Youth). Carries the shared umbrella content
-// (vision / mission / principles / team) plus the four youth-section programs.
+// Service 1 — خدمة الشباب وتدريب القادة. One page for what used to be two:
+// the shared umbrella content (vision / mission / principles / team), the
+// youth programs (قسم الشباب) and the leadership programs (قسم القادة).
 // ---------------------------------------------------------------------------
-const youth: Ministry = {
+const youthLeaders: Ministry = {
   slug: 'youth',
-  navLabel: 'الشباب',
-  eyebrow: 'خدمة الشباب وتطوير القادة',
-  title: 'خدمة الشباب',
-  navBlurb: 'مدارس تلمذة للشباب الجامعي والخريجين، وتدريبات لخدام وقادة الشباب بالكنائس.',
+  navLabel: 'الشباب وتدريب القادة',
+  title: 'خدمة الشباب وتدريب القادة',
+  navBlurb:
+    'مدارس تلمذة للشباب الجامعي والخريجين، ودبلومات وتدريبات لخدام الكنيسة المحلية وقادة الشباب.',
   heroPhoto: {
     src: '/archive/youth-discipleship-school-group.jpg',
     alt: 'صورة جماعية لمشاركي مدرسة التلمذة في حديقة، يرتدون تيشيرت المدرسة الأبيض.',
@@ -227,42 +228,6 @@ const youth: Ministry = {
             },
           ],
         },
-      ],
-      servants: [
-        { name: 'كيرلس عياد', role: 'مسؤول خدمة الشباب' },
-        { name: 'ساندي سامي', role: 'عضو فريق خدمة الشباب' },
-      ],
-      archiveSlots: 4,
-      archive: [
-        {
-          src: '/archive/youth-discipleship-school-group.jpg',
-          alt: 'صورة جماعية لمشاركي مدرسة التلمذة في حديقة، يرتدون تيشيرت المدرسة الأبيض.',
-        },
-        {
-          src: '/archive/youth-discipleship-school-lecture.jpg',
-          alt: 'شباب يتابعون محاضرة في مدرسة التلمذة ويدوّنون ملاحظاتهم أمام كتبهم المقدسة.',
-        },
-      ],
-    },
-  ],
-}
-
-// ---------------------------------------------------------------------------
-// Tab 2 — القادة (Leadership). The three leaders-section programs.
-// ---------------------------------------------------------------------------
-const leaders: Ministry = {
-  slug: 'leaders',
-  navLabel: 'القادة',
-  eyebrow: 'خدمة الشباب وتطوير القادة',
-  title: 'تطوير القادة والخدام',
-  navBlurb: 'دبلومات وشراكات لتدريب خدام الكنيسة المحلية وتنمية مهاراتهم الروحية والقيادية.',
-  heroPhoto: {
-    src: '/archive/leaders-upper-egypt-training-2025.jpg',
-    alt: 'خدام من كنائس الصعيد يتابعون تدريب القادة ٢٠٢٥ داخل الكنيسة.',
-  },
-  sections: [
-    {
-      programGroups: [
         {
           heading: 'قسم القادة',
           programs: [
@@ -301,8 +266,20 @@ const leaders: Ministry = {
           ],
         },
       ],
+      servants: [
+        { name: 'كيرلس عياد', role: 'مسؤول خدمة الشباب' },
+        { name: 'ساندي سامي', role: 'عضو فريق خدمة الشباب' },
+      ],
       archiveSlots: 4,
       archive: [
+        {
+          src: '/archive/youth-discipleship-school-group.jpg',
+          alt: 'صورة جماعية لمشاركي مدرسة التلمذة في حديقة، يرتدون تيشيرت المدرسة الأبيض.',
+        },
+        {
+          src: '/archive/youth-discipleship-school-lecture.jpg',
+          alt: 'شباب يتابعون محاضرة في مدرسة التلمذة ويدوّنون ملاحظاتهم أمام كتبهم المقدسة.',
+        },
         {
           src: '/archive/leaders-evangelical-council-training-2025.jpg',
           alt: 'مدرِّب يعرض المادة على الشاشة أمام الخدام المشاركين في تدريب المجمع الإنجيلي ٢٠٢٥.',
@@ -317,7 +294,7 @@ const leaders: Ministry = {
 }
 
 // ---------------------------------------------------------------------------
-// Tab 3 — السودانيين (Sudanese ministry in Egypt). Two sections on one page:
+// Service 2 — السودانيين (Sudanese ministry in Egypt). Sections on one page:
 // the Child ministry (NewLife Center) and the Girls & Women ministry.
 // ---------------------------------------------------------------------------
 const sudanese: Ministry = {
@@ -525,7 +502,7 @@ const sudanese: Ministry = {
   ],
 }
 
-export const ministries: Ministry[] = [youth, leaders, sudanese]
+export const ministries: Ministry[] = [youthLeaders, sudanese]
 
 export function getMinistry(slug: string | undefined): Ministry | undefined {
   return ministries.find((m) => m.slug === slug)
@@ -582,12 +559,12 @@ export const serviceNav: NavNode[] = ministries.map((m) => ({
 export const site = {
   name: 'أمل جديد',
   nameEn: 'New Hope',
-  tagline: 'خدمة الشباب وتطوير القادة · خدمة السودانيين بمصر',
+  tagline: 'خدمة الشباب وتدريب القادة · خدمة السودانيين بمصر',
   /** Home hero — describes only the work documented on the service pages. */
   intro:
     'خدمة أمل جديد تعمل على تلمذة الشباب وتأهيل القادة والخدام في الكنائس المحلية، وعلى خدمة المجتمع السوداني في مصر: أطفالًا وسيدات وقادة.',
   /** Shared across the organisation — currently documented under خدمة الشباب. */
-  principles: youth.sections[0].principles ?? [],
+  principles: youthLeaders.sections[0].principles ?? [],
 } as const
 
 /** Held back from the home carousel — they still appear on their own service

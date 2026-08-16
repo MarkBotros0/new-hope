@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { SiteHeader } from './components/SiteHeader'
 import { Footer } from './components/Footer'
 import { HomePage } from './pages/HomePage'
@@ -37,6 +37,8 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/about" element={<AboutPage />} />
+          {/* تطوير القادة merged into خدمة الشباب — keep the old link alive. */}
+          <Route path="/leaders" element={<Navigate to="/youth" replace />} />
           {/* `:sub` selects a sub-ministry on multi-section pages. */}
           <Route path="/:slug" element={<MinistryPage />} />
           <Route path="/:slug/:sub" element={<MinistryPage />} />

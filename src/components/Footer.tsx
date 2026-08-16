@@ -23,57 +23,29 @@ export function Footer() {
 
   return (
     <footer className="border-t-4 border-secondary bg-brand text-white">
+      {/* Two columns: services first (the start side, right in RTL), contact
+          second. Stacked on phones. */}
       <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 text-center sm:grid-cols-2 sm:gap-8 sm:px-6 sm:text-start">
-        {/* Brand */}
-        <div>
-          <p className="text-xl font-extrabold">أمل جديد</p>
-          <p dir="ltr" className="mt-1 text-sm font-bold tracking-wide text-white/85">
-            New Hope
-          </p>
-          <p className="mt-3 leading-loose text-white/90">
-            خدمة الشباب وتطوير القادة · خدمة السودانيين بمصر
-          </p>
-        </div>
-
-        {/* Site map — mirrors the header nav, sub-ministries included. */}
-        <nav aria-label="روابط الموقع">
+        {/* Top-level services only. الرئيسية، من نحن and the sub-ministries are
+            all one click away in the header, so the footer stays a short
+            index rather than a second copy of the nav. */}
+        <nav aria-label="روابط الخدمات">
           <FooterHeading>خدماتنا</FooterHeading>
           <ul className="text-sm text-white/90">
-            <li>
-              <Link to="/" className={linkClass}>
-                الرئيسية
-              </Link>
-            </li>
-            <li>
-              <Link to="/about" className={linkClass}>
-                من نحن
-              </Link>
-            </li>
             {serviceNav.map((service) => (
               <li key={service.path}>
                 <Link to={service.path} className={linkClass}>
                   {service.label}
                 </Link>
-                {service.children && (
-                  <ul className="border-e border-secondary/40 pe-3 ms-2 text-white/85">
-                    {service.children.map((child) => (
-                      <li key={child.path}>
-                        <Link to={child.path} className={linkClass}>
-                          {child.label}
-                        </Link>
-                      </li>
-                    ))}
-                  </ul>
-                )}
               </li>
             ))}
           </ul>
         </nav>
 
         {/* Contact — awaiting real details */}
-        <div className="sm:col-span-2">
+        <div>
           <FooterHeading>تواصل معنا</FooterHeading>
-          <ul className="flex flex-col items-center gap-3 text-sm text-white/90 sm:flex-row sm:flex-wrap sm:items-center sm:gap-x-8">
+          <ul className="flex flex-col items-center gap-3 text-sm text-white/90 sm:items-start">
             {pendingContact.map(({ key, Icon, label }) => (
               <li key={key} className="flex items-center gap-2">
                 <Icon size={16} className="shrink-0 text-secondary" aria-hidden="true" />

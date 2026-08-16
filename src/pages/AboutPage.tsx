@@ -35,7 +35,7 @@ export function AboutPage() {
         className="scroll-anchor"
         eyebrow="مجالات الخدمة"
         title="أين نخدم"
-        lead="ثلاثة مجالات رئيسية، وتحت خدمة السودانيين ثلاث خدمات فرعية."
+        lead="مجالان رئيسيان، وتحت خدمة السودانيين ثلاث خدمات فرعية."
       >
         <ServiceLinkCards />
       </Section>
