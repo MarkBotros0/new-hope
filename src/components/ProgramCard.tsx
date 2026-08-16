@@ -11,6 +11,10 @@ export function ProgramCard({ program }: { program: Program }) {
   // could honestly say, so it takes the numbered card من نحن uses for أهدافنا.
   const items = details?.items
   const numbered = !!items && !items.some((it) => topicIcon(it))
+  // A one-entry list is not a list: there is nothing to number and nothing to
+  // compare it against, so it folds into the description card under its own
+  // heading rather than standing outside as a lone card.
+  const inline = numbered && items.length === 1
 
   return (
     <div className="text-center">
@@ -47,9 +51,16 @@ export function ProgramCard({ program }: { program: Program }) {
             {para}
           </p>
         ))}
+
+        {inline && details && (
+          <div className="border-t border-line pt-5">
+            <h4 className="mb-3 font-bold text-ink">{details.heading}</h4>
+            <p className="leading-loose text-body">{items[0]}</p>
+          </div>
+        )}
       </div>
 
-      {details && (
+      {details && !inline && (
         <div className="mt-6 border-t border-line pt-5">
           <h4 className="mb-4 font-bold text-ink">{details.heading}</h4>
 
