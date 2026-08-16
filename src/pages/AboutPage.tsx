@@ -46,7 +46,7 @@ export function AboutPage() {
           are not the same kind of content. */}
       <Section title="رؤيتنا">
         <div className={aboutCard + ' text-center'}>
-          <p className="text-2xl font-black leading-[1.7] text-ink sm:text-3xl">
+          <p className="text-lg leading-[1.9] text-ink sm:text-xl">
             {about.vision}
           </p>
         </div>
@@ -69,7 +69,7 @@ export function AboutPage() {
       </Section>
 
       <Section id="values" className="scroll-anchor" title="قيمنا الأساسية">
-        <TenetCards items={about.values} columns={2} />
+        <TenetCards items={about.values} columns={2} englishTitles={false} />
       </Section>
     </main>
   )

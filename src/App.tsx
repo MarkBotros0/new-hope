@@ -5,8 +5,6 @@ import { Footer } from './components/Footer'
 import { HomePage } from './pages/HomePage'
 import { AboutPage } from './pages/AboutPage'
 import { MinistryPage } from './pages/MinistryPage'
-// TEMPORARY — remove with `src/dev/ActionColorPicker.tsx` once a colour is picked.
-import { ActionColorPicker } from './dev/ActionColorPicker'
 
 /** Send the reader back to the top when the route changes — an SPA otherwise
  *  keeps the previous scroll offset. Hash links are left alone, and so are
@@ -27,8 +25,6 @@ function ScrollToTop() {
 function App() {
   return (
     <div className="flex min-h-svh flex-col">
-      {/* TEMPORARY dev bar — stripped from any production build. */}
-      {import.meta.env.DEV && <ActionColorPicker />}
       <a
         href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:right-3 focus:z-50 focus:rounded-full focus:bg-action focus:px-5 focus:py-2.5 focus:text-sm focus:font-bold focus:text-action-ink"

@@ -12,11 +12,18 @@ interface TenetCardsProps {
    *  comfortable line length for the longer statements, so they only split
    *  from `md`; two columns are roomy enough to split at `sm`. */
   columns?: 2 | 3
+  /** Show the English name under the Arabic one. Off for قيمنا, where the
+   *  client wants the Arabic to stand alone. */
+  englishTitles?: boolean
 }
 
 /** A numbered set of named statements — the pillars the work rests on, the
  *  values it is held to. An ordered list, because the client numbers them. */
-export function TenetCards({ items, columns = 2 }: TenetCardsProps) {
+export function TenetCards({
+  items,
+  columns = 2,
+  englishTitles = true,
+}: TenetCardsProps) {
   const grid = columns === 3 ? 'md:grid-cols-3' : 'sm:grid-cols-2'
 
   // A last row left holding one card sits against the start edge with an empty
@@ -47,9 +54,11 @@ export function TenetCards({ items, columns = 2 }: TenetCardsProps) {
             </span>
             <div className="min-w-0">
               <h3 className="text-lg font-black leading-snug text-ink">{item.title}</h3>
-              <p className="mt-0.5 text-sm font-semibold text-muted">
-                <bdi>{item.titleEn}</bdi>
-              </p>
+              {englishTitles && (
+                <p className="mt-0.5 text-sm font-semibold text-muted">
+                  <bdi>{item.titleEn}</bdi>
+                </p>
+              )}
             </div>
           </div>
           <p className="mt-4 leading-loose text-body">{item.body}</p>
