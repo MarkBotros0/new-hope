@@ -41,7 +41,7 @@ export function SubMinistryTabs({ ministry, sub }: SubMinistryTabsProps) {
   return (
     // The tab bar joins the header in the sticky stack; anchors offset by both.
     <div style={{ '--tabbar-h': '4.25rem' } as React.CSSProperties}>
-      <div className="sticky top-[var(--header-h)] z-10 border-y border-secondary-line bg-page/90 backdrop-blur">
+      <div className="sticky top-[var(--header-h)] z-10 border-y border-secondary-line bg-white/90 shadow-header backdrop-blur">
         <div className="mx-auto max-w-6xl px-4 py-3 sm:px-6">
           <TabStrip
             labels={sections.map((s) => s.tabLabel ?? s.heading ?? '')}

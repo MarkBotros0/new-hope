@@ -4,23 +4,49 @@ import type { ArchivePhoto } from '../data/ministries'
 
 interface HeroCarouselProps {
   photos: ArchivePhoto[]
-  /** Milliseconds each slide is held before the next one fades in. */
+  /** Milliseconds each slide is held before the next one slides in. */
   interval?: number
 }
 
-/** Full-width hero slideshow. Slides cross-fade on a timer that keeps running
- *  through hover and through the arrows and dots — those jump the slideshow
- *  along rather than taking it over. It only stops on a backgrounded tab, and
- *  never starts at all under `prefers-reduced-motion`. */
+interface SlideState {
+  index: number
+  /** The slide being pushed out; -1 before the first move. */
+  leaving: number
+  /** 1 = forward (the next photo arrives from the start side), -1 = back. */
+  direction: number
+}
+
+/** How long a slide takes to travel the full width. */
+const SLIDE_MS = 700
+
+/** Full-width hero slideshow. Each change slides the whole frame sideways —
+ *  the incoming photo travels in from one edge while the outgoing one leaves
+ *  by the other, the way a swipe would carry it. The page is RTL, so forward
+ *  brings the next photo in from the left.
+ *
+ *  Only the two slides in motion are transitioned; the rest sit staged off
+ *  frame, so wrapping from the last photo back to the first costs the same
+ *  single step as any other move. The timer runs through hover and through
+ *  the dots, stops on a backgrounded tab, and never starts under
+ *  `prefers-reduced-motion`. */
 export function HeroCarousel({ photos, interval = 2000 }: HeroCarouselProps) {
-  const [index, setIndex] = useState(0)
+  const [{ index, leaving, direction }, setSlide] = useState<SlideState>({
+    index: 0,
+    leaving: -1,
+    direction: 1,
+  })
   const [paused, setPaused] = useState(false)
   const reduceMotion = usePrefersReducedMotion()
   const count = photos.length
 
   const go = useCallback(
-    (next: number) => {
-      if (count > 0) setIndex(((next % count) + count) % count)
+    (next: number, towards: number) => {
+      setSlide((current) => {
+        if (count === 0) return current
+        const wrapped = ((next % count) + count) % count
+        if (wrapped === current.index) return current
+        return { index: wrapped, leaving: current.index, direction: towards }
+      })
     },
     [count],
   )
@@ -30,7 +56,7 @@ export function HeroCarousel({ photos, interval = 2000 }: HeroCarouselProps) {
   // the click itself.
   useEffect(() => {
     if (reduceMotion || paused || count < 2) return
-    const id = window.setTimeout(() => go(index + 1), interval)
+    const id = window.setTimeout(() => go(index + 1, 1), interval)
     return () => window.clearTimeout(id)
   }, [count, go, index, interval, paused, reduceMotion])
 
@@ -43,38 +69,56 @@ export function HeroCarousel({ photos, interval = 2000 }: HeroCarouselProps) {
 
   if (count === 0) return null
 
+  /** Percent offset for a slide: 0 on show, one width out on either side.
+   *  Physical percentages, not logical ones — a transform ignores `dir`. */
+  const offset = (i: number) => {
+    if (i === index) return 0
+    if (i === leaving) return direction > 0 ? 100 : -100
+    // Everything else waits on the side the next photo will arrive from.
+    return direction > 0 ? -100 : 100
+  }
+
   return (
     <section
       aria-roledescription="carousel"
       aria-label="من أرشيف الخدمة"
-      className="relative isolate h-[26rem] overflow-hidden rounded-3xl border border-secondary-line bg-brand shadow-sm sm:h-[30rem] lg:h-[34rem]"
+      // Square and edge-to-edge on phones, a framed card from `sm` up: a
+      // full-bleed panel with rounded corners and side borders reads broken.
+      className="relative isolate h-[26rem] overflow-hidden border-y border-secondary-line bg-brand shadow-card sm:h-[30rem] sm:rounded-3xl sm:border lg:h-[34rem]"
     >
-      {photos.map((photo, i) => (
-        <img
-          key={photo.src}
-          src={photo.src}
-          alt={photo.alt}
-          loading={i === 0 ? 'eager' : 'lazy'}
-          decoding="async"
-          aria-hidden={i === index ? undefined : true}
-          // The slide settles from a slight scale as it fades in, so the
-          // change reads as one continuous move instead of a hard dissolve.
-          // Easing is a soft-landing cubic; both properties share it.
-          className={`absolute inset-0 h-full w-full object-cover transition-[opacity,transform] duration-1000 ease-[cubic-bezier(0.22,0.61,0.36,1)] will-change-[opacity,transform] ${
-            i === index ? 'scale-100 opacity-100' : 'scale-[1.04] opacity-0'
-          }`}
-        />
-      ))}
+      {photos.map((photo, i) => {
+        const inMotion = i === index || i === leaving
+        return (
+          <div
+            key={photo.src}
+            aria-hidden={i === index ? undefined : true}
+            style={{
+              transform: `translateX(${offset(i)}%)`,
+              // Staged slides snap into place; only the two in motion travel.
+              transitionDuration: inMotion ? `${SLIDE_MS}ms` : '0ms',
+            }}
+            className="absolute inset-0 transition-transform ease-[cubic-bezier(0.4,0,0.2,1)] will-change-transform"
+          >
+            <img
+              src={photo.src}
+              alt={photo.alt}
+              loading={i === 0 ? 'eager' : 'lazy'}
+              decoding="async"
+              className="h-full w-full object-cover"
+            />
+          </div>
+        )
+      })}
 
-      {/* A short wash at the foot of the frame — just enough for the controls
-          to stay legible over a light photo; the image itself stays clear. */}
+      {/* A short wash at the foot of the frame — just enough for the dots to
+          stay legible over a light photo; the image itself stays clear. */}
       <div
         aria-hidden="true"
         className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/45 to-transparent"
       />
 
       {/* Dots — the slideshow runs itself, so these jump between photos
-          without the arrows framing them as the way to drive it. */}
+          without arrows framing them as the way to drive it. */}
       {count > 1 && (
         <div className="absolute inset-x-0 bottom-4 z-10 flex items-center justify-center gap-2 sm:bottom-6">
           {photos.map((photo, i) => (
@@ -83,7 +127,7 @@ export function HeroCarousel({ photos, interval = 2000 }: HeroCarouselProps) {
               type="button"
               aria-label={`الصورة ${i + 1} من ${count}`}
               aria-current={i === index}
-              onClick={() => go(i)}
+              onClick={() => go(i, i > index ? 1 : -1)}
               className={`h-2.5 rounded-full transition-all duration-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black/40 ${
                 i === index ? 'w-7 bg-secondary' : 'w-2.5 bg-white/60 hover:bg-white'
               }`}

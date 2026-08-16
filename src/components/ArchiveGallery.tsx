@@ -39,7 +39,7 @@ export function ArchiveGallery({ count, photos }: ArchiveGalleryProps) {
   }
 
   const arrow =
-    'flex h-11 w-11 items-center justify-center rounded-full border border-line-strong bg-white text-body transition hover:border-secondary-dark hover:text-secondary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-2'
+    'flex h-11 w-11 items-center justify-center rounded-full border border-line-strong bg-white text-body shadow-control transition hover:border-secondary-dark hover:text-secondary-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-2'
 
   const tile =
     'aspect-[4/3] w-[78%] shrink-0 snap-start rounded-2xl border border-secondary-line bg-secondary-soft sm:w-[45%] lg:w-[31%]'

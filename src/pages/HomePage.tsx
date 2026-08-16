@@ -11,9 +11,10 @@ export function HomePage() {
 
   return (
     <main id="main">
-      {/* No bottom padding: the services band brings its own top padding, and
-          two stacked gaps left the carousel stranded. */}
-      <div className="mx-auto max-w-6xl px-4 pt-6 sm:px-6 sm:pt-8">
+      {/* Full-bleed on phones — the gutters cost a screen-width photo more than
+          the framing is worth. No bottom padding either: the services band
+          brings its own, and two stacked gaps left the carousel stranded. */}
+      <div className="mx-auto max-w-6xl pt-6 sm:px-6 sm:pt-8">
         <HeroCarousel photos={highlightPhotos} />
       </div>
 

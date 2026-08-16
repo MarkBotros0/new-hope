@@ -23,9 +23,28 @@ export function Footer() {
 
   return (
     <footer className="border-t-4 border-secondary bg-brand text-white">
-      {/* Two columns: services first (the start side, right in RTL), contact
-          second. Stacked on phones. */}
-      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 text-center sm:grid-cols-2 sm:gap-8 sm:px-6 sm:text-start">
+      {/* Three equal columns — logo, services, contact — so the row reads as
+          even spans rather than a mark squeezed against the edge. Stacked on
+          phones. */}
+      <div className="mx-auto grid max-w-6xl gap-10 px-4 py-12 text-center sm:grid-cols-3 sm:gap-8 sm:px-6 sm:text-start">
+        {/* A white cut of the mark, so it sits straight on the black field
+            with no tile behind it. The cross keeps the logo orange. */}
+        {/* The cell stretches to the row height and centres the mark inside it,
+            so the link columns keep starting at their headings. */}
+        <div className="flex items-center justify-center sm:justify-start">
+          <Link
+            to="/"
+            aria-label="أمل جديد — الصفحة الرئيسية"
+            className="inline-flex rounded-2xl p-1 transition hover:opacity-90 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-brand"
+          >
+            <img
+              src="/logo-white.png"
+              alt="أمل جديد — New Hope"
+              className="h-16 w-auto object-contain sm:h-20"
+            />
+          </Link>
+        </div>
+
         {/* Top-level services only. الرئيسية، من نحن and the sub-ministries are
             all one click away in the header, so the footer stays a short
             index rather than a second copy of the nav. */}

@@ -61,12 +61,12 @@ export function SiteHeader() {
   }, [inService])
 
   return (
-    <header className="sticky top-0 z-20 border-b border-secondary-line bg-page/85 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b border-secondary-line bg-white/90 shadow-header backdrop-blur">
       {/* Orange accent bar — its height is counted in --header-h (index.css). */}
       <div className="h-1 bg-secondary" aria-hidden="true" />
 
       {/* Fixed height so --header-h stays accurate. */}
-      <div className="mx-auto flex h-16 max-w-6xl items-center justify-between gap-4 px-4 sm:h-[4.25rem] sm:px-6">
+      <div className="mx-auto flex h-[4.5rem] max-w-6xl items-center justify-between gap-4 px-4 sm:h-20 sm:px-6">
         <Link
           to="/"
           className="flex items-center gap-3 rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary-dark focus-visible:ring-offset-2"
@@ -76,7 +76,7 @@ export function SiteHeader() {
             <img
               src="/logo-removebg-preview.png"
               alt="أمل جديد — New Hope"
-              className="h-10 w-auto object-contain sm:h-11"
+              className="h-12 w-auto object-contain sm:h-14"
               onError={() => setLogoOk(false)}
             />
           ) : (

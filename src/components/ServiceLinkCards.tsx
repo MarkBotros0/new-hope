@@ -13,7 +13,7 @@ export function ServiceLinkCards() {
       {serviceNav.map((service) => (
         <li
           key={service.path}
-          className="group flex flex-col overflow-hidden rounded-2xl border border-secondary-line bg-white shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg focus-within:-translate-y-1 focus-within:shadow-lg"
+          className="group flex flex-col overflow-hidden rounded-2xl border border-secondary-line bg-white shadow-card transition duration-300 hover:-translate-y-1 hover:shadow-lift focus-within:-translate-y-1 focus-within:shadow-lift"
         >
           {/* Photo panel. The image is decorative: the heading sitting on it
               already names the service. */}
@@ -34,12 +34,14 @@ export function ServiceLinkCards() {
             <div className="absolute inset-x-0 bottom-0 p-5">
               {/* The rule stretches on hover — the card's one moving part. */}
               <span className="mb-3 block h-1 w-10 rounded-full bg-secondary transition-all duration-300 group-hover:w-16" />
+              {/* The nav labels are shorthand (الشباب…); on a card standing on
+                  its own the full "خدمة …" name reads better. */}
               <h3 className="text-xl font-black text-white">
                 <Link
                   to={service.path}
                   className="rounded after:absolute after:inset-0 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-brand"
                 >
-                  {service.label}
+                  خدمة {service.label}
                 </Link>
               </h3>
             </div>

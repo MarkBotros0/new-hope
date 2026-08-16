@@ -8,7 +8,7 @@ export function StatsCard({ stats }: { stats: Stat[] }) {
       {stats.map((s) => (
         <div
           key={s.label}
-          className="rounded-2xl border border-secondary-line bg-white p-5 text-center shadow-sm sm:p-6"
+          className="rounded-2xl border border-secondary-line bg-white p-5 text-center shadow-card sm:p-6"
         >
           <p className="text-4xl font-black leading-tight text-secondary-dark sm:text-5xl">
             {s.value}

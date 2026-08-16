@@ -18,7 +18,7 @@ const base =
 // Orange carries the actions. `secondary-dark` clears AA against white text
 // (5.9:1); the vivid logo orange would not, so it stays on non-text marks.
 const variants = {
-  solid: 'bg-secondary-dark text-white shadow-sm hover:bg-secondary-deep',
+  solid: 'bg-secondary-dark text-white shadow-control hover:bg-secondary-deep',
   outline:
     'border border-secondary-dark bg-white text-secondary-dark hover:bg-secondary-soft',
 }

@@ -39,7 +39,7 @@ export function AboutPage() {
         </div>
       </Section>
 
-      <Section tone="tint" title="مهمتنا">
+      <Section title="مهمتنا">
         <div className="max-w-3xl space-y-4">
           {about.mission.map((paragraph) => (
             <p key={paragraph} className="leading-loose text-body">
@@ -53,7 +53,7 @@ export function AboutPage() {
         <TenetCards items={about.pillars} columns={3} />
       </Section>
 
-      <Section id="values" className="scroll-anchor" tone="tint" title="قيمنا الأساسية">
+      <Section id="values" className="scroll-anchor" title="قيمنا الأساسية">
         <TenetCards items={about.values} columns={2} />
       </Section>
     </main>

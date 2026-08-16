@@ -16,17 +16,26 @@
   --color-secondary-soft: #ffe4d6; /* chip + icon surfaces (solid, prints true) */
   --color-secondary-line: #f7c3a8; /* warm hairline on orange surfaces */
 
-  /* Surface scale — three warm steps, each one level apart. Bands alternate
-     page/tint; cards sit flat and white on either; `secondary-soft` is the
-     chip/icon surface *inside* a card, so it stays distinct from both. */
-  --color-tint: #fff4ee; /* tinted band wash — subtle by design */
+  /* Surface scale. Bands no longer alternate — the page is one continuous
+     field and cards are pure white, so depth comes from the shadows below
+     rather than from a tinted stripe. */
   --color-ink: #141414; /* headings */
   --color-body: #4a4340; /* body text */
   --color-label: #423b37; /* secondary labels */
   --color-muted: #6f6560; /* muted text — still AA on white and tint */
   --color-line: #eee0d8; /* hairline dividers and card edges */
   --color-line-strong: #9a8378; /* borders that identify a control (AA 1.4.11) */
-  --color-page: #ffffff;
+  --color-page: #fdf6f2; /* the page itself — logo orange at ~6% over white */
+
+  /* Shadows are cast in the brand's burnt orange rather than neutral grey, so
+     a lifted card still belongs to the same material as the page under it. */
+  --shadow-card: 0 26px 50px -18px rgb(120 50 20 / 0.55), 0 6px 14px -8px rgb(120 50 20 / 0.4);
+  --shadow-lift: 0 38px 72px -20px rgb(120 50 20 / 0.62), 0 10px 22px -10px rgb(120 50 20 / 0.45);
+  --shadow-header: 0 20px 32px -18px rgb(120 50 20 / 0.75);
+  /* Small raised things — buttons, active pills, the gallery arrows. */
+  --shadow-control: 0 8px 16px -8px rgb(120 50 20 / 0.55);
+  /* Overlays that float clear of the page: the الخدمات dropdown. */
+  --shadow-menu: 0 32px 60px -24px rgb(120 50 20 / 0.6), 0 8px 18px -10px rgb(120 50 20 / 0.35);
 
   /* Arabic UI font */
   --font-sans: 'Cairo', system-ui, 'Segoe UI', sans-serif;
@@ -37,13 +46,13 @@
     /* Height of the sticky site header (0.25rem orange accent bar + content
        row); sub-ministry pages add a tab bar on top of it. Anchor offsets are
        derived from these. */
-    --header-h: 4.25rem;
+    --header-h: 4.75rem;
     --tabbar-h: 0rem;
   }
 
   @media (min-width: 640px) {
     :root {
-      --header-h: 4.5rem;
+      --header-h: 5.25rem;
     }
   }
 
@@ -60,6 +69,29 @@
     background-color: var(--color-page);
     color: var(--color-body);
     font-family: var(--font-sans);
+  }
+
+  /* Ambient light, not a painted band. The orange accent bar above the header
+     reads as the light source: it spills down behind the content and is gone
+     within the first screen, with a faint warm floor closing the page into the
+     black footer. Fixed to the viewport rather than the document, so the tone
+     under the header is the same on every page and at every scroll position —
+     and a pseudo-element rather than `background-attachment: fixed`, which
+     iOS Safari repaints badly. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    background-image:
+      radial-gradient(
+        135% 70% at 50% -10%,
+        rgb(240 90 39 / 0.28) 0%,
+        rgb(240 90 39 / 0.09) 45%,
+        rgb(240 90 39 / 0) 72%
+      ),
+      radial-gradient(120% 45% at 50% 108%, rgb(143 47 16 / 0.1) 0%, rgb(143 47 16 / 0) 70%);
   }
 
   h1,

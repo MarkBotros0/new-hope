@@ -77,7 +77,7 @@ export function ServicesMenu() {
       {open && (
         <div
           id={panelId}
-          className="absolute end-0 top-full z-30 mt-2 w-[min(44rem,calc(100vw-2rem))] rounded-2xl border border-secondary-line bg-white p-3 shadow-xl [animation:fadeIn_0.18s_ease]"
+          className="absolute end-0 top-full z-30 mt-2 w-[min(44rem,calc(100vw-2rem))] rounded-2xl border border-secondary-line bg-white p-3 shadow-menu [animation:fadeIn_0.18s_ease]"
         >
           <ul className="grid gap-2 sm:grid-cols-3">
             {serviceNav.map((service) => (
