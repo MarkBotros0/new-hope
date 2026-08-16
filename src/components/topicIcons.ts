@@ -1,10 +1,13 @@
 import {
   BookOpen,
   BookOpenCheck,
+  Brain,
+  Briefcase,
   CircleQuestionMark,
   Footprints,
   HeartCrack,
   HeartHandshake,
+  HeartPulse,
   ImageOff,
   MirrorRound,
   Shield,
@@ -31,6 +34,11 @@ const icons: Record<string, typeof Target> = {
   'كيف نفهم الكتاب المقدس': BookOpenCheck,
   'التعامل مع الإشكاليات': CircleQuestionMark,
   'حياة التلمذة': Footprints,
+  // المحاور الرئيسية الأربعة
+  'المحور الروحي والنفسي': HeartPulse,
+  'المحور المجتمعي والعلاقاتي': Users,
+  'المحور العملي/المهني': Briefcase,
+  'المحور الفكري واللاهوتي': Brain,
 }
 
 export function topicIcon(label: string) {

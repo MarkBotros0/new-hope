@@ -75,14 +75,25 @@ export function ProgramCard({ program }: { program: Program }) {
           )}
 
           {details.namedItems && (
-            <div className="mx-auto grid max-w-3xl gap-6 sm:grid-cols-2">
-              {details.namedItems.map((it) => (
-                <div key={it.title}>
-                  <p className="font-bold text-ink">{it.title}</p>
-                  <p className="mt-1 leading-relaxed text-body">{it.body}</p>
-                </div>
-              ))}
-            </div>
+            <ul className="mx-auto grid max-w-3xl gap-2.5 sm:grid-cols-2">
+              {details.namedItems.map((it) => {
+                const Icon = topicIcon(it.title)
+                return (
+                  <li
+                    key={it.title}
+                    className="rounded-xl border border-secondary-line bg-white p-5 shadow-card"
+                  >
+                    <div className="flex items-center justify-center gap-2.5">
+                      <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-secondary-soft text-secondary-dark">
+                        <Icon size={17} aria-hidden="true" />
+                      </span>
+                      <p className="text-start font-bold text-ink">{it.title}</p>
+                    </div>
+                    <p className="mt-3 leading-relaxed text-body">{it.body}</p>
+                  </li>
+                )
+              })}
+            </ul>
           )}
         </div>
       )}
