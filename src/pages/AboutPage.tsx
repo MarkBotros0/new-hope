@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Section } from '../components/Section'
+import { ServicesPuzzle } from '../components/ServicesPuzzle'
 import { TenetCards } from '../components/TenetCards'
 import { about } from '../data/ministries'
 
@@ -19,19 +20,16 @@ export function AboutPage() {
 
   return (
     <main id="main">
-      {/* Full-bleed banner, flush under the header and edge to edge. It carries
-          no text: the photo is the statement, and the page's own title follows
-          on the page field below it rather than fighting a scrim. */}
-      {/* Taller than the photo's own 2.83:1 would give at this width. `object-
-          cover` scales it up and trims the sides rather than distorting it —
-          the globe and hands sit centre frame, so the crop takes only sky. */}
-      <div className="h-72 overflow-hidden border-b border-secondary-line sm:h-[26rem] lg:h-[32rem]">
-        <img
-          src="/about-hero.jpg"
-          alt="يدان تحملان الكرة الأرضية وقد أضاءت عليها حدود مصر، وحمائم بيضاء تحلّق حولها في سماء عند الغروب"
-          fetchPriority="high"
-          className="h-full w-full object-cover object-center"
-        />
+      {/* Full-bleed banner, flush under the header: the ministries as the
+          pieces of one puzzle. It carries no heading of its own — the picture
+          is the statement, and the page's title follows on the page field
+          below it. Capped at 90rem so the pieces never grow past a banner's
+          height on a wide monitor; the rule underneath still runs edge to
+          edge. */}
+      <div className="border-b border-secondary-line">
+        <div className="mx-auto max-w-[90rem]">
+          <ServicesPuzzle />
+        </div>
       </div>
 
       {/* The banner is the whole opening now. The page still needs to say what
@@ -40,8 +38,8 @@ export function AboutPage() {
       <h1 className="sr-only">من نحن</h1>
 
       {/* One spread, two labelled rows, rather than two stacked boxes. The
-          label sits in its own narrow column with the text beside it, so a
-          one-line vision and a two-paragraph mission each fill their row
+          label sits in its own narrow column with the text beside it, so the
+          vision paragraph and the two-paragraph mission each fill their row
           instead of leaving a box mostly empty, and the pair reads as one
           statement of purpose with two parts. Chrome matches the أهدافنا and
           قيمنا cards below. */}
@@ -53,8 +51,10 @@ export function AboutPage() {
               <span className="mt-2 block h-1 w-10 rounded-full bg-secondary" />
             </div>
             {/* The vision outranks the mission prose on size, not on weight —
-                it is the aspiration the rest of the page answers to. */}
-            <p className="text-xl leading-[1.9] text-ink sm:text-2xl sm:leading-[1.8]">
+                it is the aspiration the rest of the page answers to. One step
+                up rather than two: at a full paragraph, 2xl set four heavy
+                lines that shouted over the mission instead of leading it. */}
+            <p className="text-lg leading-[1.9] text-ink sm:text-xl sm:leading-[1.8]">
               {about.vision}
             </p>
           </div>
