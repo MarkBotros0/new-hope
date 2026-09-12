@@ -1,28 +1,30 @@
 import { servicePuzzle } from '../data/ministries'
 import { puzzlePieces } from './puzzlePaths'
 
-/** Cell size in viewBox units. Wide rather than square so the 4 × 2 grid
- *  keeps a banner's proportions (≈ 3 : 1). */
+/** Cell width in viewBox units; each grid picks its own height, so three
+ *  desktop rows keep to a banner's proportions and a two-wide phone column
+ *  doesn't stack into a tower. */
 const CELL_W = 400
-const CELL_H = 260
 
 interface PuzzleGridProps {
   cols: number
   rows: number
+  cellH: number
   /** Prefix for the clip-path ids — both grids are in the DOM at once. */
   id: string
   className?: string
 }
 
 /** One arrangement of the pieces. The content list reads right to left, top
- *  row first, so index `i` lands at the mirrored column of its row. */
-function PuzzleGrid({ cols, rows, id, className }: PuzzleGridProps) {
-  const pieces = puzzlePieces(cols, rows, CELL_W, CELL_H)
+ *  row first, so index `i` lands at the mirrored column of its row; a grid
+ *  smaller than the list simply takes its first `cols × rows` entries. */
+function PuzzleGrid({ cols, rows, cellH, id, className }: PuzzleGridProps) {
+  const pieces = puzzlePieces(cols, rows, CELL_W, cellH)
   const contentAt = (col: number, row: number) => servicePuzzle[row * cols + (cols - 1 - col)]
 
   return (
     <svg
-      viewBox={`0 0 ${cols * CELL_W} ${rows * CELL_H}`}
+      viewBox={`0 0 ${cols * CELL_W} ${rows * cellH}`}
       className={className}
       aria-hidden="true"
       focusable="false"
@@ -71,15 +73,28 @@ function PuzzleGrid({ cols, rows, id, className }: PuzzleGridProps) {
 
 /** The من نحن banner: the ministries as the pieces of one puzzle. Decorative
  *  — one accessible name for the whole picture, no links. Two arrangements
- *  are rendered and swapped by breakpoint: four across from `sm`, two across
- *  below it so each piece is still legible on a phone. */
+ *  are rendered and swapped by breakpoint: all fifteen pieces five across in
+ *  three rows from `sm`, the first eight two across below it so each piece
+ *  is still legible on a phone. */
 export function ServicesPuzzle() {
   const names = [...new Set(servicePuzzle.map((piece) => piece.label))].join('، ')
 
   return (
     <div role="img" aria-label={`قطع أحجية تجمع خدمات أمل جديد: ${names}.`}>
-      <PuzzleGrid cols={4} rows={2} id="puzzle-wide" className="hidden h-auto w-full sm:block" />
-      <PuzzleGrid cols={2} rows={4} id="puzzle-narrow" className="block h-auto w-full sm:hidden" />
+      <PuzzleGrid
+        cols={5}
+        rows={3}
+        cellH={230}
+        id="puzzle-wide"
+        className="hidden h-auto w-full sm:block"
+      />
+      <PuzzleGrid
+        cols={2}
+        rows={4}
+        cellH={260}
+        id="puzzle-narrow"
+        className="block h-auto w-full sm:hidden"
+      />
     </div>
   )
 }

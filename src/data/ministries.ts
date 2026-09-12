@@ -635,10 +635,13 @@ export interface PuzzlePieceContent {
 }
 
 /** The من نحن banner: the ministries as the pieces of one puzzle, in the
- *  order they are read (right to left, top row first). Eight pieces from five
- *  ministries — youth, leaders and children each appear twice, on different
- *  photos — sequenced so no ministry lands directly above its twin in either
- *  the 4 × 2 or the 2 × 4 arrangement. */
+ *  order they are read (right to left, top row first). Fifteen pieces from
+ *  five ministries: every archive photo once, then four of them again — one
+ *  per ministry that has fewer shots than the children's — each repeat in
+ *  the corner opposite its first showing. The desktop grid is 5 × 3 and
+ *  takes all fifteen; the phone grid is 2 × 4 and takes the first eight —
+ *  the order keeps ministries apart in both, so no piece sits beside or
+ *  directly above another of its own ministry. */
 export const servicePuzzle: PuzzlePieceContent[] = [
   { label: 'خدمة الشباب', src: '/archive/youth-discipleship-school-group.jpg' },
   { label: 'تدريب القادة', src: '/archive/leaders-upper-egypt-training-2025.jpg' },
@@ -648,6 +651,13 @@ export const servicePuzzle: PuzzlePieceContent[] = [
   { label: 'خدمة الطفل', src: '/archive/sudanese-children-students-in-class.jpg' },
   { label: 'خدمة الشباب', src: '/archive/youth-discipleship-school-lecture.jpg' },
   { label: 'تدريب القادة', src: '/archive/leaders-evangelical-council-training-2025.jpg' },
+  { label: 'خدمة الطفل', src: '/archive/sudanese-children-mathematics-class.jpg' },
+  { label: 'الفتيات والسيدات', src: '/archive/sudanese-women-discipleship-meeting.jpg' },
+  { label: 'القسس وقادة الشباب', src: '/archive/sudanese-pastors-leadership-conference.jpg' },
+  { label: 'الفتيات والسيدات', src: '/archive/sudanese-women-discipleship-event.jpg' },
+  { label: 'خدمة الطفل', src: '/archive/sudanese-children-counting-technique.jpg' },
+  { label: 'تدريب القادة', src: '/archive/leaders-upper-egypt-training-2025.jpg' },
+  { label: 'خدمة الشباب', src: '/archive/youth-discipleship-school-group.jpg' },
 ]
 
 /** Held back from the home carousel — they still appear on their own service
