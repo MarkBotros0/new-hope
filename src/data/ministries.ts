@@ -626,24 +626,28 @@ export const about = {
   ] as Tenet[],
 }
 
-/** One piece of the من نحن banner: a ministry named on its own photo, or —
- *  when `src` is absent — the logo piece the others fit around. */
+/** One piece of the من نحن banner: a ministry's photo, with the ministry it
+ *  belongs to for the banner's accessible name. */
 export interface PuzzlePieceContent {
   label: string
   /** Path under `public/archive/`. */
-  src?: string
+  src: string
 }
 
-/** The من نحن banner: every ministry as a piece of one puzzle, each under
- *  the photo its own page leads with, in the order they are read (right to
- *  left, top row first). The logo piece sits second so it lands mid-row. */
+/** The من نحن banner: the ministries as the pieces of one puzzle, in the
+ *  order they are read (right to left, top row first). Eight pieces from five
+ *  ministries — youth, leaders and children each appear twice, on different
+ *  photos — sequenced so no ministry lands directly above its twin in either
+ *  the 4 × 2 or the 2 × 4 arrangement. */
 export const servicePuzzle: PuzzlePieceContent[] = [
   { label: 'خدمة الشباب', src: '/archive/youth-discipleship-school-group.jpg' },
-  { label: 'أمل جديد' },
   { label: 'تدريب القادة', src: '/archive/leaders-upper-egypt-training-2025.jpg' },
   { label: 'خدمة الطفل', src: '/archive/sudanese-children-teacher-in-class.jpg' },
   { label: 'الفتيات والسيدات', src: '/archive/sudanese-women-discipleship-event.jpg' },
   { label: 'القسس وقادة الشباب', src: '/archive/sudanese-pastors-leadership-conference.jpg' },
+  { label: 'خدمة الطفل', src: '/archive/sudanese-children-students-in-class.jpg' },
+  { label: 'خدمة الشباب', src: '/archive/youth-discipleship-school-lecture.jpg' },
+  { label: 'تدريب القادة', src: '/archive/leaders-evangelical-council-training-2025.jpg' },
 ]
 
 /** Held back from the home carousel — they still appear on their own service
