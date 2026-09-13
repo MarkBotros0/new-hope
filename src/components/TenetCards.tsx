@@ -13,8 +13,8 @@ interface TenetCardsProps {
   englishTitles?: boolean
 }
 
-/** A numbered set of named statements — the pillars the work rests on, the
- *  values it is held to. An ordered list, because the client numbers them. */
+/** A numbered set of named statements — the values the work is held to. An
+ *  ordered list, because the client numbers them. */
 export function TenetCards({
   items,
   columns = 2,

@@ -8,7 +8,7 @@ export function ProgramCard({ program }: { program: Program }) {
   const { title, titleEn, meta, paragraphs, details } = program
 
   // A topic list earns an icon per entry; a list of goals has nothing an icon
-  // could honestly say, so it takes the numbered card من نحن uses for أهدافنا.
+  // could honestly say, so it takes the numbered card من نحن uses for قيمنا.
   const items = details?.items
   const numbered = !!items && !items.some((it) => topicIcon(it))
   // A one-entry list is not a list: there is nothing to number and nothing to
@@ -65,7 +65,7 @@ export function ProgramCard({ program }: { program: Program }) {
           <h4 className="mb-4 font-bold text-ink">{details.heading}</h4>
 
           {items && numbered && (
-            // Same card as أهدافنا الأساسية on من نحن: numbered chip, orange
+            // Same card as قيمنا الأساسية on من نحن: numbered chip, orange
             // top rule, statement below it.
             <ul className="mx-auto grid max-w-5xl gap-5 sm:gap-6 md:grid-cols-3">
               {items.map((it, i) => (

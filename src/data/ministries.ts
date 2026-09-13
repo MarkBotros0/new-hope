@@ -21,8 +21,8 @@ export interface Principle {
   body: string
 }
 
-/** A named pillar or value — Arabic name, its English counterpart, and the
- *  statement that defines it. */
+/** A named value — Arabic name, its English counterpart, and the statement
+ *  that defines it. */
 export interface Tenet {
   title: string
   titleEn: string
@@ -559,9 +559,9 @@ export const site = {
 } as const
 
 // ---------------------------------------------------------------------------
-// من نحن — the organisation's own statement of identity: vision, mission,
-// the three pillars the work rests on, and the seven values it is held to.
-// Client-supplied and reproduced verbatim; nothing here is paraphrased.
+// من نحن — the organisation's own statement of identity: vision, mission, and
+// the seven values it is held to. Client-supplied and reproduced verbatim;
+// nothing here is paraphrased.
 // ---------------------------------------------------------------------------
 export const about = {
   vision:
@@ -570,23 +570,6 @@ export const about = {
     'نلتزم في أمل جديد بأن نُعلن محبة المسيح ورجاءه في كنائسنا، من خلال الوصول للناس غير الموصول إليهم برسالة الإنجيل، ومرافقتهم في مسيرة تلمذة حيّة، وتمكين الكنائس لتعيش دعوتها وتخدم مجتمعاتها بفعالية.',
     'نحرص أن نحقق هذا الالتزام بالشراكة مع الكنائس المحلية، وبطرق تحترم السياقات الثقافية والاجتماعية، وتُراعي احتياجات الأفراد والمجتمعات.',
   ],
-  pillars: [
-    {
-      title: 'الكرازة',
-      titleEn: 'Evangelism',
-      body: 'مشاركة الناس برسالة محبة المسيح وخلاصه، ودعوتهم لاتباعه كتلاميذ حقيقيين يعيشون له ويشبهونه. مع مراعاة السياقات الثقافية والاجتماعية، والحساسية الدينية والسياسية، وخصوصية كل الفئات المختلفة.',
-    },
-    {
-      title: 'التلمذة',
-      titleEn: 'Discipleship',
-      body: 'مسيرة مستمرة نعيشها مع أشخاص يسعون لاتباع المسيح، تشمل التعليم، والتشكيل الروحي، والرعاية، بهدف أن ينمو التلميذ ليحيا بحسب صورة المسيح، ويشارك الإنجيل مع الآخرين — مع مراعاة اختلاف النِسب بين هذه المكونات حسب مرحلة النضج الروحي، والاحتياجات النفسية، والسياق الثقافي، والعمر.',
-    },
-    {
-      title: 'تمكين الكنائس',
-      titleEn: 'Church Empowerment',
-      body: 'العمل مع الكنائس المحلية لتشجيعها وتقويتها لتعيش دعوتها كجسد حيّ للمسيح، ينمو في العمق الروحي، ويُعبّر عمليًا عن محبة المسيح من خلال أعمال الرحمة. يشمل ذلك بناء القدرات (Capacity Building) للقادة والفرق والخدمات، مع مراعاة السياق المحلي واحتياجات كل كنيسة ودورها في مجتمعها.',
-    },
-  ] as Tenet[],
   values: [
     {
       title: 'النزاهة',

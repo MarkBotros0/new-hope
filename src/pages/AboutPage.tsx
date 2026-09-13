@@ -10,9 +10,9 @@ import { about } from '../data/ministries'
  *  where a 9rem column would leave the prose nothing to sit in. */
 const aboutRow = 'grid gap-4 p-6 sm:p-8 md:grid-cols-[9rem_1fr] md:gap-10 md:p-10'
 
-/** من نحن — the organisation's own statement of itself: vision, mission, the
- *  three pillars the work rests on, and the seven values it is held to. Every
- *  line is the client's own text (see `about` in `data/ministries`). */
+/** من نحن — the organisation's own statement of itself: vision, mission, and
+ *  the seven values it is held to. Every line is the client's own text (see
+ *  `about` in `data/ministries`). */
 export function AboutPage() {
   useEffect(() => {
     document.title = 'من نحن — أمل جديد'
@@ -41,8 +41,8 @@ export function AboutPage() {
           label sits in its own narrow column with the text beside it, so the
           vision paragraph and the two-paragraph mission each fill their row
           instead of leaving a box mostly empty, and the pair reads as one
-          statement of purpose with two parts. Chrome matches the أهدافنا and
-          قيمنا cards below. */}
+          statement of purpose with two parts. Chrome matches the قيمنا cards
+          below. */}
       <Section title="رؤيتنا ومهمتنا">
         <div className="overflow-hidden rounded-2xl border border-secondary-line border-t-4 border-t-secondary bg-white shadow-card">
           <div className={aboutRow}>
@@ -73,10 +73,6 @@ export function AboutPage() {
             </div>
           </div>
         </div>
-      </Section>
-
-      <Section id="pillars" className="scroll-anchor" title="أهدافنا الأساسية">
-        <TenetCards items={about.pillars} columns={3} englishTitles={false} />
       </Section>
 
       <Section id="values" className="scroll-anchor" title="قيمنا الأساسية">
