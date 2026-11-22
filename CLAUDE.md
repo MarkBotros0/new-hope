@@ -52,3 +52,33 @@ Push `jpc` with the token rather than `gh auth switch`: the switch is global and
 would change the account for other repos on this machine. `MarkBotros0` owns both
 this repo's `origin` and `message-of-hope`, so leaving it active is the right
 default.
+
+## Deploys (Vercel)
+
+Production is `https://new-hope-sigma.vercel.app`, deployed by Vercel from `jpc`'s
+`main` (project `jesusprojectcommunity/new-hope`, Hobby plan). The Vercel CLI on
+this machine is logged in as `jesusprojectcommunity`.
+
+**Hobby only deploys a push whose newest commit is authored by the project
+owner.** Commits authored as Mark Botros push fine, but the deploy shows
+`● Blocked` ("the commit author doesn't have permission to create deployments")
+and production silently stays on the last good build. The repo has no local
+author override, so this is the default outcome.
+
+After every push, check the deploy:
+
+```bash
+vercel ls new-hope        # newest row should be ● Ready, not ● Blocked
+```
+
+If it is blocked, ask before re-authoring anything. The fix used so far is one
+empty commit authored as the owner, pushed to both remotes. It rewrites no
+history, and Vercel builds the whole current tree:
+
+```bash
+git commit --allow-empty -m "Trigger Vercel deploy under the project owner's account" \
+  --author="jesusprojectcommunity <353095907+jesusprojectcommunity@users.noreply.github.com>"
+```
+
+A push that changes nothing the site serves (such as an edit to this file)
+doesn't need a deploy, so a blocked build for it is harmless.
