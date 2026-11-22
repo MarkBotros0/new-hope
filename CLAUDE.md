@@ -32,16 +32,23 @@ There is no test runner configured. `npm run build` is the primary correctness g
 
 ## Git and GitHub
 
-This repo is `MarkBotros0/new-hope`. Several GitHub accounts are authenticated
-via `gh` on this machine, and **only `MarkBotros0` has write access here** — a
-push under any other account fails with a 403 (`Permission ... denied`).
+This repo has **two remotes, and every push goes to both**:
 
-Before pushing, confirm the active account and switch if needed:
+| Remote | Repo | Account |
+|---|---|---|
+| `origin` | `MarkBotros0/new-hope` | `MarkBotros0` |
+| `jpc` | `jesusprojectcommunity/new-hope` | `jesusprojectcommunity` |
+
+Several GitHub accounts are authenticated via `gh` on this machine, and each
+remote only accepts its own account — a push under any other fails with a 403
+(`Permission ... denied`) or "Repository not found".
 
 ```bash
-gh auth status && gh auth switch --user MarkBotros0
+gh auth switch --hostname github.com --user MarkBotros0 && git push origin main
+GH_TOKEN=$(gh auth token --hostname github.com --user jesusprojectcommunity) git push jpc main
 ```
 
-`gh auth switch` changes the active account globally, so it also affects other
-repos on this machine. `MarkBotros0` owns both this repo and `message-of-hope`,
-so leaving it active is the right default.
+Push `jpc` with the token rather than `gh auth switch`: the switch is global and
+would change the account for other repos on this machine. `MarkBotros0` owns both
+this repo's `origin` and `message-of-hope`, so leaving it active is the right
+default.
