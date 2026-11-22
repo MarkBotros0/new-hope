@@ -60,25 +60,26 @@ Production is `https://new-hope-sigma.vercel.app`, deployed by Vercel from `jpc`
 this machine is logged in as `jesusprojectcommunity`.
 
 **Hobby only deploys a push whose newest commit is authored by the project
-owner.** Commits authored as Mark Botros push fine, but the deploy shows
-`● Blocked` ("the commit author doesn't have permission to create deployments")
-and production silently stays on the last good build. The repo has no local
-author override, so this is the default outcome.
+owner**, so every commit in this repo is authored as `jesusprojectcommunity`
+(repo-local git config, set 2026-11-22):
 
-After every push, check the deploy:
+```bash
+git config --local user.name    # jesusprojectcommunity
+git config --local user.email   # 353095907+jesusprojectcommunity@users.noreply.github.com
+```
+
+Keep it that way. A commit authored as anyone else (e.g. Mark Botros) still
+pushes, but its deploy shows `● Blocked` ("the commit author doesn't have
+permission to create deployments") and production silently stays on the last
+good build. Check after every push:
 
 ```bash
 vercel ls new-hope        # newest row should be ● Ready, not ● Blocked
 ```
 
-If it is blocked, ask before re-authoring anything. The fix used so far is one
-empty commit authored as the owner, pushed to both remotes. It rewrites no
-history, and Vercel builds the whole current tree:
+If one does get blocked, push an empty commit authored as the owner; it rewrites
+no history, and Vercel builds the whole current tree:
 
 ```bash
-git commit --allow-empty -m "Trigger Vercel deploy under the project owner's account" \
-  --author="jesusprojectcommunity <353095907+jesusprojectcommunity@users.noreply.github.com>"
+git commit --allow-empty -m "Trigger Vercel deploy under the project owner's account"
 ```
-
-A push that changes nothing the site serves (such as an edit to this file)
-doesn't need a deploy, so a blocked build for it is harmless.
