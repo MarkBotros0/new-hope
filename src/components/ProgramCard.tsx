@@ -5,7 +5,7 @@ import type { Program } from '../data/ministries'
 /** Content of one program (shown inside the active tab panel): title, meta
  *  chips, paragraphs, and an optional detail block. */
 export function ProgramCard({ program }: { program: Program }) {
-  const { title, titleEn, meta, paragraphs, details } = program
+  const { title, titleEn, meta, paragraphs, details, closing } = program
 
   // A topic list earns an icon per entry; a list of goals has nothing an icon
   // could honestly say, so it takes the numbered card من نحن uses for قيمنا.
@@ -120,12 +120,17 @@ export function ProgramCard({ program }: { program: Program }) {
 
           {details.namedItems && (
             <ul className="mx-auto grid max-w-3xl gap-2.5 sm:grid-cols-2">
-              {details.namedItems.map((it) => {
+              {details.namedItems.map((it, i, all) => {
                 const Icon = topicIcon(it.title)
                 return (
                   <li
                     key={it.title}
-                    className="rounded-xl border border-secondary-line bg-white p-5 shadow-card"
+                    className={`rounded-xl border border-secondary-line bg-white p-5 shadow-card ${
+                      // A last row holding one card centres under the pair above.
+                      all.length % 2 === 1 && i === all.length - 1
+                        ? 'sm:col-span-2 sm:w-[calc((100%-0.625rem)/2)] sm:justify-self-center'
+                        : ''
+                    }`}
                   >
                     <div className="flex items-center justify-center gap-2.5">
                       {Icon && (
@@ -142,6 +147,10 @@ export function ProgramCard({ program }: { program: Program }) {
             </ul>
           )}
         </div>
+      )}
+
+      {closing && (
+        <p className="mx-auto mt-6 max-w-3xl leading-loose text-body">{closing}</p>
       )}
     </div>
   )
